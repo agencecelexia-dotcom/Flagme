@@ -6,6 +6,8 @@ import { FlagPreview } from "@/components/flag/FlagPreview";
 import type { TextConfig } from "@/components/flag/EmbroideredText";
 import { CountryPicker } from "./CountryPicker";
 import { OptionGroup } from "./OptionGroup";
+import { StepNav } from "./StepNav";
+import { MobileBar } from "./MobileBar";
 import { DEFAULT_COUNTRY, getCountry } from "@/data/countries";
 import { HOST_CITIES } from "@/data/euro2028";
 import {
@@ -23,20 +25,44 @@ import { useCart } from "@/lib/cart";
 const MAX_LINE_1 = 20;
 const MAX_LINE_2 = 26;
 
+const STEPS = [
+  { id: "etape-pays", label: "Pays" },
+  { id: "etape-texte", label: "Texte" },
+  { id: "etape-broderie", label: "Broderie" },
+  { id: "etape-format", label: "Format" },
+];
+
 function Step({
-  step,
+  id,
+  index,
   title,
+  next,
   children,
 }: {
-  step: string;
+  id: string;
+  index: number;
   title: string;
+  /** Libellé de l'étape suivante ; absent sur la dernière. */
+  next?: { id: string; label: string };
   children: React.ReactNode;
 }) {
   return (
-    <section className="card p-6 sm:p-8">
-      <p className="eyebrow">{step}</p>
+    <section id={id} className="card scroll-mt-40 p-6 sm:p-8">
+      <p className="eyebrow">{`Étape ${String(index + 1).padStart(2, "0")}`}</p>
       <h2 className="display mt-3 text-2xl">{title}</h2>
       <div className="mt-6">{children}</div>
+
+      {/* Sans ce relais, la seule façon d'avancer est de deviner qu'il faut
+          continuer à faire défiler la page. */}
+      {next && (
+        <a
+          href={`#${next.id}`}
+          className="rule mt-7 flex items-center justify-between pt-5 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+        >
+          Étape suivante · {next.label}
+          <span aria-hidden>↓</span>
+        </a>
+      )}
     </section>
   );
 }
@@ -122,8 +148,10 @@ export function Configurator({
   /** Villes hôtes de l'Euro correspondant au pays sélectionné. */
   const euroCities = HOST_CITIES.filter((entry) => entry.countryCode === countryCode);
 
+  const summary = `${country.name} · ${format.name}`;
+
   return (
-    <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 pb-40 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pb-24">
       {/* --------------------------- Aperçu + prix ------------------------ */}
       <div className="lg:sticky lg:top-28 lg:self-start">
         <FlagPreview
@@ -139,7 +167,8 @@ export function Configurator({
           {format.dims}
         </p>
 
-        {/* Détail du prix : rien de caché avant le panier. */}
+        {/* Détail du prix : rien de caché avant le panier. Sur mobile, le
+            bouton vit dans la barre collante — celui-ci ferait doublon. */}
         <div className="card mt-7 p-6">
           <ul className="space-y-2.5 text-sm">
             {lines.map((line) => (
@@ -161,7 +190,7 @@ export function Configurator({
             type="button"
             onClick={handleAdd}
             disabled={!canAdd}
-            className={`pill mt-6 h-14 w-full text-base ${
+            className={`pill mt-6 hidden h-14 w-full text-base lg:flex ${
               canAdd ? "pill-dark" : "bg-bone-warm text-ink-faint"
             }`}
           >
@@ -184,12 +213,19 @@ export function Configurator({
       </div>
 
       {/* ----------------------------- Réglages -------------------------- */}
-      <div className="space-y-6">
-        <Step step="Étape 01" title="Ton pays">
+      <div>
+        <StepNav
+          steps={STEPS.map((step) =>
+            step.id === "etape-texte" ? { ...step, done: canAdd } : step,
+          )}
+        />
+
+        <div className="space-y-6">
+        <Step id={STEPS[0].id} index={0} title="Ton pays" next={STEPS[1]}>
           <CountryPicker value={countryCode} onChange={selectCountry} />
         </Step>
 
-        <Step step="Étape 02" title="Ton texte">
+        <Step id={STEPS[1].id} index={1} title="Ton texte" next={STEPS[2]}>
           <label className="block">
             <span className="text-sm font-semibold">Ligne principale</span>
             <input
@@ -258,7 +294,7 @@ export function Configurator({
           </label>
         </Step>
 
-        <Step step="Étape 03" title="La broderie">
+        <Step id={STEPS[2].id} index={2} title="La broderie" next={STEPS[3]}>
           <div className="space-y-7">
             <OptionGroup
               legend="Style"
@@ -317,7 +353,7 @@ export function Configurator({
           </div>
         </Step>
 
-        <Step step="Étape 04" title="Format & finition">
+        <Step id={STEPS[3].id} index={3} title="Format & finition">
           <div className="grid gap-2 sm:grid-cols-2">
             {FORMATS.map((item) => {
               const selected = item.id === formatId;
@@ -378,7 +414,18 @@ export function Configurator({
             })}
           </div>
         </Step>
+        </div>
       </div>
+
+      <MobileBar
+        spec={country.spec}
+        text={text}
+        ratio={format.ratio}
+        summary={summary}
+        total={total}
+        canAdd={canAdd}
+        onAdd={handleAdd}
+      />
     </div>
   );
 }

@@ -19,6 +19,9 @@ const FILTERS = [
   ...REGIONS,
 ];
 
+/** Nombre de drapeaux montrés avant d'avoir à déplier le catalogue. */
+const PREVIEW_COUNT = 12;
+
 export function CountryPicker({
   value,
   onChange,
@@ -28,6 +31,7 @@ export function CountryPicker({
 }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
+  const [expanded, setExpanded] = useState(false);
 
   const results = useMemo(() => {
     const needle = normalize(query.trim());
@@ -46,6 +50,18 @@ export function CountryPicker({
       );
     });
   }, [query, filter]);
+
+  /**
+   * Le catalogue ne défile plus dans la page : sur mobile, une zone qui
+   * défile à l'intérieur d'une page qui défile se manipule très mal au
+   * doigt. On en montre une poignée, le reste se déplie.
+   *
+   * Dès que l'utilisateur cherche ou filtre, il a restreint lui-même :
+   * on affiche alors tout ce qui reste.
+   */
+  const narrowed = query.trim().length > 0 || filter !== "all";
+  const shown = expanded || narrowed ? results : results.slice(0, PREVIEW_COUNT);
+  const hidden = results.length - shown.length;
 
   return (
     <div>
@@ -82,8 +98,8 @@ export function CountryPicker({
           <span className="text-ink">Écris-nous, on la dessine.</span>
         </p>
       ) : (
-        <div className="mt-5 grid max-h-[26rem] grid-cols-3 gap-3 overflow-y-auto pb-1 pr-1 sm:grid-cols-4">
-          {results.map((country) => {
+        <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4">
+          {shown.map((country) => {
             const selected = country.code === value;
             return (
               <button
@@ -113,6 +129,16 @@ export function CountryPicker({
             );
           })}
         </div>
+      )}
+
+      {hidden > 0 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="pill pill-light mt-5 h-11 w-full text-sm"
+        >
+          {`Voir les ${results.length} nations`}
+        </button>
       )}
     </div>
   );

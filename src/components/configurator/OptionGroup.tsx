@@ -13,6 +13,17 @@ type Option = {
  * Groupe de choix exclusifs. Tous les réglages du configurateur passent par
  * ce composant : un seul geste à apprendre, une seule apparence à retenir.
  */
+/**
+ * Une colonne sur petit écran, quel que soit le réglage demandé : à 390 px,
+ * deux colonnes coupent les libellés (« Or mét… », « Contou… ») et on fait
+ * choisir une couleur sans dire laquelle.
+ */
+const COLUMNS: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-1 sm:grid-cols-2",
+  3: "grid-cols-1 sm:grid-cols-3",
+};
+
 export function OptionGroup({
   legend,
   options,
@@ -29,10 +40,7 @@ export function OptionGroup({
   return (
     <fieldset>
       <legend className="mb-3 text-sm font-semibold">{legend}</legend>
-      <div
-        className="grid gap-2"
-        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      >
+      <div className={`grid gap-2 ${COLUMNS[columns] ?? COLUMNS[2]}`}>
         {options.map((option) => {
           const selected = option.id === value;
           return (
