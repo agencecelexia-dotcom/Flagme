@@ -1,6 +1,30 @@
-import { Anton, Archivo, Alfa_Slab_One, Yellowtail } from "next/font/google";
+import {
+  Bungee,
+  Fredoka,
+  Anton,
+  Alfa_Slab_One,
+  Yellowtail,
+} from "next/font/google";
 
-/** Titrage de marque : condensé, majuscule, esprit flocage de maillot. */
+/** Titrage : lettrage de borne d'arcade, tout en capitales. */
+export const bungee = Bungee({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-arcade",
+  display: "swap",
+});
+
+/** Interface et texte courant : grotesque arrondi, esprit bonbon. */
+export const fredoka = Fredoka({
+  subsets: ["latin"],
+  variable: "--font-candy",
+  display: "swap",
+});
+
+/* --- Polices de broderie : elles imitent de vrais styles de machine, --- */
+/* --- elles restent donc sobres même si le site est explosif.         --- */
+
+/** Broderie « Terrace » : condensé, esprit flocage de maillot. */
 export const anton = Anton({
   subsets: ["latin"],
   weight: "400",
@@ -8,14 +32,7 @@ export const anton = Anton({
   display: "swap",
 });
 
-/** Texte courant et interface. */
-export const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
-/** Style de broderie « Varsity » : slab épais, esprit college américain. */
+/** Broderie « Varsity » : slab épais, esprit college américain. */
 export const alfaSlab = Alfa_Slab_One({
   subsets: ["latin"],
   weight: "400",
@@ -23,7 +40,7 @@ export const alfaSlab = Alfa_Slab_One({
   display: "swap",
 });
 
-/** Style de broderie « Script » : cursive penchée, esprit ultras italiens. */
+/** Broderie « Script » : cursive penchée, esprit ultras italiens. */
 export const yellowtail = Yellowtail({
   subsets: ["latin"],
   weight: "400",
@@ -32,8 +49,9 @@ export const yellowtail = Yellowtail({
 });
 
 export const fontVariables = [
+  bungee.variable,
+  fredoka.variable,
   anton.variable,
-  archivo.variable,
   alfaSlab.variable,
   yellowtail.variable,
 ].join(" ");

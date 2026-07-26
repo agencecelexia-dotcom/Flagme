@@ -15,7 +15,7 @@ type Showcase = {
 /**
  * Vitrine du héros : de vraies combinaisons pays / ville, parce que le
  * concept se comprend en trois secondes quand on le voit, pas quand on
- * l'explique.
+ * l'explique. Les nations hôtes de l'Euro 2028 ouvrent la série.
  */
 const SHOWCASES: Showcase[] = [
   {
@@ -28,6 +28,19 @@ const SHOWCASES: Showcase[] = [
       threadId: "navy",
       outlineId: "none",
       placementId: "bottom",
+      sizeId: "m",
+    },
+  },
+  {
+    countryCode: "gb-wls",
+    caption: "Pays de Galles · Cardiff",
+    text: {
+      line1: "Cardiff",
+      line2: "",
+      fontId: "block",
+      threadId: "white",
+      outlineId: "dark",
+      placementId: "top",
       sizeId: "m",
     },
   },
@@ -51,19 +64,6 @@ const SHOWCASES: Showcase[] = [
       line1: "Casablanca",
       line2: "Dima Maghrib",
       fontId: "terrace",
-      threadId: "gold",
-      outlineId: "none",
-      placementId: "bottom",
-      sizeId: "m",
-    },
-  },
-  {
-    countryCode: "pt",
-    caption: "Portugal · Porto",
-    text: {
-      line1: "Porto",
-      line2: "",
-      fontId: "varsity",
       threadId: "white",
       outlineId: "dark",
       placementId: "bottom",
@@ -71,13 +71,13 @@ const SHOWCASES: Showcase[] = [
     },
   },
   {
-    countryCode: "dz",
-    caption: "Algérie · Tizi Ouzou",
+    countryCode: "gb-sct",
+    caption: "Écosse · Glasgow",
     text: {
-      line1: "Tizi Ouzou",
+      line1: "Glasgow",
       line2: "",
-      fontId: "terrace",
-      threadId: "gold",
+      fontId: "varsity",
+      threadId: "white",
       outlineId: "dark",
       placementId: "bottom",
       sizeId: "m",
@@ -98,7 +98,7 @@ const SHOWCASES: Showcase[] = [
   },
 ];
 
-const ROTATION_MS = 4800;
+const ROTATION_MS = 4200;
 
 export function HeroShowcase() {
   const [index, setIndex] = useState(0);
@@ -123,43 +123,45 @@ export function HeroShowcase() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Halo aux couleurs du drapeau affiché : l'interface réagit au pays. */}
+      {/* L'écran : un cadre épais aux couleurs du pays affiché. */}
       <div
-        className="pointer-events-none absolute -inset-16 -z-10 rounded-full opacity-30 blur-3xl transition-colors duration-700"
+        className="sticker relative overflow-hidden p-4 transition-colors duration-500 sm:p-6"
         style={{ backgroundColor: country.accent }}
-      />
-
-      <div className="relative rounded-brand shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
-        <FlagPreview
-          key={current.countryCode + index}
-          spec={country.spec}
-          text={current.text}
-          ratio={1.667}
-          waving
-          className="animate-rise"
+      >
+        <div
+          aria-hidden
+          className="dots pointer-events-none absolute inset-0 text-paper opacity-20"
         />
-      </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="eyebrow text-chalk-mute">Fait par un supporter</p>
-          <p className="mt-1 font-semibold text-chalk">{current.caption}</p>
+        <div className="relative">
+          <FlagPreview
+            key={current.countryCode + index}
+            spec={country.spec}
+            text={current.text}
+            ratio={1.667}
+            waving
+            className="animate-pop drop-shadow-[8px_8px_0_rgba(0,0,0,0.35)]"
+          />
         </div>
 
-        <div className="flex items-center gap-2" role="tablist" aria-label="Exemples">
-          {SHOWCASES.map((showcase, i) => (
-            <button
-              key={showcase.caption}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={showcase.caption}
-              onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-8 bg-flare" : "w-3 bg-ink-4 hover:bg-chalk-mute"
-              }`}
-            />
-          ))}
+        <div className="sticker-sm relative mt-4 flex flex-wrap items-center justify-between gap-3 bg-paper px-3 py-2.5">
+          <p className="arcade text-sm">{current.caption}</p>
+
+          <div className="flex items-center gap-1.5" role="tablist" aria-label="Exemples">
+            {SHOWCASES.map((showcase, i) => (
+              <button
+                key={showcase.caption}
+                type="button"
+                role="tab"
+                aria-selected={i === index}
+                aria-label={showcase.caption}
+                onClick={() => setIndex(i)}
+                className={`h-3 rounded-full border-[3px] border-ink transition-all ${
+                  i === index ? "w-8 bg-bubble" : "w-3 bg-cream hover:bg-lemon"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -167,9 +169,9 @@ export function HeroShowcase() {
         href={`/configurateur?pays=${current.countryCode}&ligne1=${encodeURIComponent(
           current.text.line1,
         )}`}
-        className="mt-5 inline-flex text-sm font-semibold text-flare underline-offset-4 hover:underline"
+        className="sticker-sm sticker-press mt-4 inline-flex bg-paper px-4 py-2.5 text-sm font-bold"
       >
-        Partir de ce modèle →
+        Partir de ce modèle ▸
       </Link>
     </div>
   );

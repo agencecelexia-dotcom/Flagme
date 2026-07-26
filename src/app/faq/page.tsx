@@ -80,29 +80,29 @@ const GROUPS = [
 
 export default function FaqPage() {
   return (
-    <div className="mx-auto max-w-4xl px-5 py-12">
-      <p className="eyebrow text-flare">Questions fréquentes</p>
-      <h1 className="brand-title mt-3 text-[clamp(2.6rem,7vw,5rem)] text-chalk">
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <p className="hud text-bubble">Questions fréquentes</p>
+      <h1 className="arcade-hero mt-3 text-[clamp(2.4rem,7vw,4.5rem)]">
         Tout ce qu&apos;on nous demande
       </h1>
 
       <div className="mt-14 space-y-14">
         {GROUPS.map((group) => (
           <section key={group.title}>
-            <h2 className="brand-title text-2xl text-flare">{group.title}</h2>
-            <div className="mt-5 divide-y divide-ink-3 border-y border-ink-3">
+            <h2 className="arcade text-2xl text-bubble">{group.title}</h2>
+            <div className="mt-5 space-y-3">
               {group.items.map((item) => (
-                <details key={item.q} className="group py-5">
+                <details key={item.q} className="sticker group bg-paper p-5">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-left">
-                    <span className="font-semibold text-chalk">{item.q}</span>
+                    <span className="font-bold">{item.q}</span>
                     <span
                       aria-hidden
-                      className="mt-1 shrink-0 text-chalk-mute transition-transform group-open:rotate-45"
+                      className="arcade mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-lemon text-sm transition-transform group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-chalk-dim">
+                  <p className="mt-3 max-w-2xl text-sm font-semibold leading-relaxed text-ink-soft">
                     {item.a}
                   </p>
                 </details>
@@ -112,21 +112,21 @@ export default function FaqPage() {
         ))}
       </div>
 
-      <section className="mt-20 rounded-brand border border-ink-3 bg-ink-2 p-8 text-center">
-        <h2 className="brand-title text-3xl text-chalk">Une autre question&nbsp;?</h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-chalk-dim">
+      <section className="sticker mt-20 bg-tint-mint p-8 text-center">
+        <h2 className="arcade text-3xl">Une autre question&nbsp;?</h2>
+        <p className="mx-auto mt-3 max-w-sm text-sm font-semibold text-ink-soft">
           On répond sous 24 heures ouvrées, et c&apos;est un humain de
           l&apos;atelier qui écrit.
         </p>
         <a
           href="mailto:bonjour@flagme.fr"
-          className="mt-6 inline-flex h-12 items-center rounded-brand border border-ink-4 px-6 text-sm font-bold text-chalk transition-colors hover:border-flare hover:text-flare"
+          className="sticker-sm sticker-press mt-6 inline-flex h-12 items-center bg-paper px-6 text-sm font-bold"
         >
           bonjour@flagme.fr
         </a>
-        <p className="mt-8 text-xs text-chalk-mute">
+        <p className="mt-8 text-xs font-semibold text-ink-soft">
           Prêt à commencer&nbsp;?{" "}
-          <Link href="/configurateur" className="font-bold text-flare underline-offset-4 hover:underline">
+          <Link href="/configurateur" className="font-bold text-bubble underline underline-offset-4">
             Ouvre le configurateur
           </Link>
         </p>

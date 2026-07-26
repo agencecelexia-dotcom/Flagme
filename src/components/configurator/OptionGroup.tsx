@@ -10,8 +10,8 @@ type Option = {
 };
 
 /**
- * Groupe de choix exclusifs, rendu en pastilles. Utilisé pour tout le
- * configurateur afin que chaque réglage se manipule de la même façon.
+ * Groupe de choix exclusifs, en autocollants. Tous les réglages du
+ * configurateur passent par ce composant : un seul geste à apprendre.
  */
 export function OptionGroup({
   legend,
@@ -28,9 +28,9 @@ export function OptionGroup({
 }) {
   return (
     <fieldset>
-      <legend className="eyebrow mb-3 text-chalk-mute">{legend}</legend>
+      <legend className="hud mb-2.5 text-ink-soft">{legend}</legend>
       <div
-        className="grid gap-2"
+        className="grid gap-2.5"
         style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
       >
         {options.map((option) => {
@@ -41,30 +41,28 @@ export function OptionGroup({
               type="button"
               onClick={() => onChange(option.id)}
               aria-pressed={selected}
-              className={`flex items-center gap-2.5 rounded-brand border px-3 py-2.5 text-left transition-colors ${
-                selected
-                  ? "border-flare bg-flare/10 text-chalk"
-                  : "border-ink-4 text-chalk-dim hover:border-chalk-mute hover:text-chalk"
+              className={`sticker-sm sticker-press flex items-center gap-2.5 px-3 py-2.5 text-left ${
+                selected ? "bg-lemon" : "bg-paper"
               }`}
             >
               {option.swatch && (
                 <span
                   aria-hidden
-                  className="h-5 w-5 shrink-0 rounded-full ring-1 ring-inset ring-black/30"
+                  className="h-6 w-6 shrink-0 rounded-full border-[3px] border-ink"
                   style={{ backgroundColor: option.swatch }}
                 />
               )}
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-semibold">{option.label}</span>
+                <span className="block truncate text-sm font-bold">{option.label}</span>
                 {option.hint && (
-                  <span className="block truncate text-[11px] text-chalk-mute">
+                  <span className="block truncate text-[11px] font-medium text-ink-soft">
                     {option.hint}
                   </span>
                 )}
               </span>
               {option.surcharge ? (
-                <span className="shrink-0 text-[11px] font-bold text-thread">
-                  +{option.surcharge} €
+                <span className="shrink-0 rounded-full border-[3px] border-ink bg-tangerine px-1.5 text-[10px] font-bold text-paper">
+                  +{option.surcharge}€
                 </span>
               ) : null}
             </button>

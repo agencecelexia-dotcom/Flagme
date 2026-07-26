@@ -1,37 +1,51 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   FlagMe — direction artistique « Candy Arcade »
+   Un magasin de bonbons qui aurait une borne d'arcade au fond : fond crème,
+   couleurs saturées, contours noirs épais, ombres dures façon autocollant,
+   et des codes de jeu vidéo pour tout ce qui se choisit.
+   ========================================================================== */
+
 @theme {
-  /* ---- Palette FlagMe ------------------------------------------------ */
-  /* Fond « tribune de nuit » */
-  --color-ink: #0a0a0b;
-  --color-ink-2: #121216;
-  --color-ink-3: #191920;
-  --color-ink-4: #23232c;
+  /* ---- Fonds ---------------------------------------------------------- */
+  --color-cream: #fff3e0;
+  --color-paper: #ffffff;
 
-  /* Tissu / craie : le blanc n'est jamais pur, c'est du textile */
-  --color-chalk: #f4f1ea;
-  --color-chalk-dim: #b7b3aa;
-  --color-chalk-mute: #7d7a73;
+  /* Teintes de section, très diluées, pour rythmer la page */
+  --color-tint-mint: #dcfaf3;
+  --color-tint-lemon: #fff2c2;
+  --color-tint-grape: #efe4ff;
+  --color-tint-bubble: #ffe1ee;
+  --color-tint-blue: #dfe9ff;
 
-  /* Accent primaire : le fumigène */
-  --color-flare: #ff3a20;
-  --color-flare-deep: #c72411;
+  /* ---- Encre : un noir violacé, jamais un noir pur ------------------- */
+  --color-ink: #16121f;
+  --color-ink-soft: #524a63;
+  --color-ink-faint: #8d85a0;
 
-  /* Accent secondaire : le fil doré */
-  --color-thread: #e9b949;
-  --color-thread-deep: #a97f22;
+  /* ---- Bonbons -------------------------------------------------------- */
+  --color-bubble: #ff2e88;
+  --color-blue: #2b6bff;
+  --color-lime: #a4ee2f;
+  --color-lemon: #ffd52e;
+  --color-grape: #8b45ff;
+  --color-mint: #10d9c4;
+  --color-tangerine: #ff7a18;
 
-  /* Pelouse, pour les états de succès */
-  --color-turf: #1f9d5c;
+  /* ---- Typographie ---------------------------------------------------- */
+  --font-arcade: var(--font-arcade), "Impact", sans-serif;
+  --font-sans: var(--font-candy), ui-rounded, system-ui, sans-serif;
 
-  /* ---- Typographie --------------------------------------------------- */
-  --font-display: var(--font-anton), "Haettenschweiler", "Arial Narrow", sans-serif;
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  /* Polices de broderie */
+  --font-terrace: var(--font-anton), "Arial Narrow", sans-serif;
   --font-varsity: var(--font-alfa), Georgia, serif;
   --font-script: var(--font-yellowtail), cursive;
+  --font-bubble: var(--font-candy), ui-rounded, sans-serif;
 
-  /* ---- Divers -------------------------------------------------------- */
-  --radius-brand: 2px;
+  /* ---- Formes --------------------------------------------------------- */
+  --radius-blob: 1.75rem;
+  --radius-chip: 1rem;
 }
 
 @layer base {
@@ -40,27 +54,22 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-chalk);
+    background-color: var(--color-cream);
+    color: var(--color-ink);
     font-family: var(--font-sans);
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background-color: var(--color-flare);
-    color: var(--color-chalk);
+    background-color: var(--color-lemon);
+    color: var(--color-ink);
   }
 
-  /* Le grain de la marque : une trame fine sur tout le fond, comme une
-     photo de tribune poussée en ISO. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Anneau de focus visible et assumé : on est sur un site qui crie. */
+  :focus-visible {
+    outline: 3px solid var(--color-grape);
+    outline-offset: 3px;
   }
 
   input,
@@ -72,33 +81,109 @@
 }
 
 @layer components {
-  /* Titre de marque : condensé, serré, toujours en capitales. */
-  .brand-title {
-    font-family: var(--font-display);
+  /* ---- Titrage arcade -------------------------------------------------- */
+  .arcade {
+    font-family: var(--font-arcade);
     text-transform: uppercase;
-    letter-spacing: -0.015em;
-    line-height: 0.86;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
   }
 
-  /* Surtitre : petites capitales espacées, façon étiquette de vestiaire. */
-  .eyebrow {
+  /* Titre géant avec ombre portée dure, comme un logo de jeu. */
+  .arcade-hero {
+    font-family: var(--font-arcade);
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-shadow:
+      0.055em 0.055em 0 var(--color-ink),
+      0.11em 0.11em 0 rgb(0 0 0 / 0.18);
+  }
+
+  /* Étiquette de HUD : petit, serré, espacé. */
+  .hud {
+    font-family: var(--font-arcade);
     font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
-  /* Bande défilante type banderole de virage. */
+  /* ---- Contours épais : le trait noir qui cerne tout ------------------ */
+  .edge {
+    border: 3px solid var(--color-ink);
+  }
+  .edge-b {
+    border-bottom: 3px solid var(--color-ink);
+  }
+  .edge-t {
+    border-top: 3px solid var(--color-ink);
+  }
+
+  /* ---- L'autocollant : la brique de base de toute la DA --------------- */
+  .sticker {
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-blob);
+    box-shadow: 5px 5px 0 var(--color-ink);
+  }
+
+  .sticker-sm {
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-chip);
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+
+  /* Autocollant réactif : il s'enfonce quand on clique dessus. */
+  .sticker-press {
+    transition:
+      transform 0.12s cubic-bezier(0.2, 0.8, 0.3, 1),
+      box-shadow 0.12s cubic-bezier(0.2, 0.8, 0.3, 1);
+  }
+
+  .sticker-press:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--color-ink);
+  }
+
+  .sticker-press:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+
+  .sticker-press:disabled {
+    transform: none;
+    box-shadow: 3px 3px 0 var(--color-ink-faint);
+    cursor: not-allowed;
+  }
+
+  /* ---- Bandeau défilant ------------------------------------------------ */
   .ticker-track {
     display: flex;
     width: max-content;
-    animation: ticker 38s linear infinite;
+    animation: ticker 32s linear infinite;
   }
 
-  .stitch-border {
-    border: 1px dashed color-mix(in srgb, var(--color-chalk) 22%, transparent);
+  /* ---- Trame de bonbons en fond de section ---------------------------- */
+  .dots {
+    background-image: radial-gradient(
+      currentColor 2.5px,
+      transparent 2.6px
+    );
+    background-size: 22px 22px;
+  }
+
+  /* Rayures de barbe à papa. */
+  .stripes {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      currentColor 0 14px,
+      transparent 14px 28px
+    );
   }
 }
+
+/* ==========================================================================
+   Animations — tout doit rebondir, rien ne doit glisser
+   ========================================================================== */
 
 @keyframes ticker {
   from {
@@ -112,10 +197,10 @@
 @keyframes flag-sway {
   0%,
   100% {
-    transform: rotate(-0.4deg) translateY(0);
+    transform: rotate(-0.8deg) translateY(0);
   }
   50% {
-    transform: rotate(0.4deg) translateY(-6px);
+    transform: rotate(0.8deg) translateY(-8px);
   }
 }
 
@@ -128,34 +213,83 @@
   }
 }
 
-@keyframes rise-in {
-  from {
+@keyframes pop-in {
+  0% {
     opacity: 0;
-    transform: translateY(14px);
+    transform: scale(0.82) translateY(12px);
   }
-  to {
+  70% {
+    transform: scale(1.04) translateY(0);
+  }
+  100% {
     opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
     transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0.25;
   }
 }
 
 .animate-sway {
-  animation: flag-sway 7s ease-in-out infinite;
+  animation: flag-sway 6s ease-in-out infinite;
 }
-
 .animate-folds {
   animation: fold-drift 9s ease-in-out infinite alternate;
 }
-
-.animate-rise {
-  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+.animate-pop {
+  animation: pop-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.animate-wiggle {
+  animation: wiggle 2.4s ease-in-out infinite;
+}
+.animate-bob {
+  animation: bob 3.2s ease-in-out infinite;
+}
+.animate-blink {
+  animation: blink 1.3s steps(1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-sway,
   .animate-folds,
-  .ticker-track,
-  .animate-rise {
+  .animate-pop,
+  .animate-wiggle,
+  .animate-bob,
+  .animate-blink,
+  .ticker-track {
     animation: none !important;
+  }
+
+  .sticker-press:hover,
+  .sticker-press:active {
+    transform: none;
   }
 }

@@ -50,6 +50,42 @@ export const COUNTRIES: Country[] = [
     },
   },
   {
+    code: "gb-wls",
+    name: "Pays de Galles",
+    region: "europe",
+    cities: ["CARDIFF", "SWANSEA", "WREXHAM", "NEWPORT"],
+    accent: "#C8102E",
+    defaultThread: "white",
+    spec: {
+      base: "#FFFFFF",
+      layers: [
+        {
+          k: "bands",
+          dir: "h",
+          bands: [{ c: "#FFFFFF" }, { c: "#00AD43" }],
+        },
+        // Y Ddraig Goch, ramenée à une silhouette : à la taille d'un drapeau
+        // de tribune, c'est la posture du dragon qu'on reconnaît, pas ses
+        // écailles. Le dos reste lisse et l'aile est un tracé posé par-dessus —
+        // dessinée d'un seul trait, les festons se liraient comme des piques
+        // dorsales de dinosaure.
+        {
+          k: "path",
+          d: "M 34 92 L 60 84 L 66 72 Q 70 58 84 56 L 88 38 L 97 57 Q 104 62 111 86 Q 150 74 186 86 Q 208 94 217 109 Q 250 101 254 64 L 272 66 L 259 82 L 280 90 Q 255 131 218 129 L 212 151 L 227 165 L 200 165 L 196 143 L 166 147 L 158 163 L 171 175 L 144 175 L 140 149 L 116 141 L 96 135 L 79 147 L 84 126 L 102 120 Q 92 108 78 100 L 56 100 L 33 106 L 52 92 Z",
+          c: "#C8102E",
+        },
+        {
+          k: "path",
+          d: "M 105 90 L 126 22 L 188 28 Q 180 52 162 50 Q 173 70 150 66 Q 160 86 133 83 Z",
+          c: "#C8102E",
+        },
+        // L'œil : le seul détail qui donne une direction au regard.
+        { k: "circle", cx: 0.2533, cy: 0.365, r: 0.021, c: "#FFFFFF" },
+        { k: "circle", cx: 0.2533, cy: 0.365, r: 0.011, c: "#16121F" },
+      ],
+    },
+  },
+  {
     code: "ie",
     name: "Irlande",
     region: "europe",

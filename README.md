@@ -2,7 +2,8 @@
 
 Site marchand de drapeaux de supporter personnalisés : on choisit un pays, on
 brode sa ville ou son texte dessus — le geste des tribunes anglaises, transformé
-en produit.
+en produit. Le fil rouge du site est l'Euro 2028, qui se joue précisément là où
+la tradition est née.
 
 ## Démarrer
 
@@ -12,17 +13,40 @@ npm run dev      # http://localhost:3000
 npm run build    # build de production
 ```
 
-## Ce que couvre cette première version
+## Direction artistique — « Candy Arcade »
 
-- **Home** — héros avec vitrine tournante de combinaisons pays/ville, catalogue
-  défilant, styles de broderie, formats, preuve sociale.
-- **Configurateur** (`/configurateur`) — le cœur du site : choix du pays,
-  saisie du texte, style de broderie, fil, contour, taille, position, format et
-  finition, avec aperçu en direct et prix détaillé ligne par ligne.
+Un magasin de bonbons avec une borne d'arcade au fond. Le système tient en
+quelques règles, toutes dans `src/app/globals.css` :
+
+- **Fond crème** (`--color-cream`), sections en teintes bonbon diluées
+  (`--color-tint-*`), accents saturés (fuchsia, citron, menthe, raisin, lime).
+- **L'autocollant** est la brique de base : contour noir de 3 px, gros arrondi,
+  ombre dure non floutée. Les classes `.sticker` / `.sticker-sm` la posent,
+  `.sticker-press` l'enfonce au clic. Presque tout le site en est fait.
+- **Deux polices** : `Bungee` pour le lettrage d'arcade (`.arcade`,
+  `.arcade-hero`, `.hud`), `Fredoka` pour le texte courant.
+- **Rien ne glisse, tout rebondit** : `pop-in`, `wiggle`, `bob`, `sway`. Toutes
+  les animations tombent sous `prefers-reduced-motion`.
+- Utilitaires de trame : `.dots`, `.stripes`, qui prennent la `currentColor` de
+  leur parent.
+
+Les polices de broderie (`Anton`, `Alfa Slab One`, `Yellowtail`, `Fredoka`)
+restent sobres : elles imitent de vrais styles de machine, elles ne suivent pas
+la DA du site.
+
+## Les pages
+
+- **Home** — héros, section Euro 2028 avec compte à rebours, catalogue
+  défilant, styles de broderie, formats à l'échelle, preuve sociale.
+- **Configurateur** (`/configurateur`) — monté comme un écran de sélection de
+  jeu : barre de HUD, roster de nations, panneaux numérotés, aperçu géant qui
+  prend la couleur du pays, prix détaillé ligne par ligne.
+- **Euro 2028** (`/euro-2028`) — compte à rebours, les quatre nations hôtes,
+  les huit villes hôtes cliquables qui pré-remplissent le configurateur.
 - **Formats** (`/formats`), **Manifeste** (`/manifeste`), **FAQ** (`/faq`).
 - **Panier** (`/panier`) — persistant, avec quantités et frais de port.
 
-Le configurateur est partageable par URL : `?pays=ma&format=tifo&ligne1=Casablanca`.
+Le configurateur est partageable par URL : `?pays=gb-wls&format=tifo&ligne1=Cardiff`.
 
 ## Architecture
 
@@ -31,9 +55,9 @@ src/
   app/                 pages App Router
   components/
     flag/              rendu des drapeaux et de la broderie (SVG)
-    configurator/      le configurateur et ses sélecteurs
-    cart/ home/ layout/ brand/
-  data/                countries · formats · customization
+    configurator/      l'écran de création et ses sélecteurs
+    euro/ cart/ home/ layout/ brand/
+  data/                countries · formats · customization · euro2028
   lib/                 flag-spec · pricing · cart · fonts
 ```
 
@@ -56,8 +80,8 @@ du tissu, les plis, le fourreau et les œillets.
 
 `EmbroideredText.tsx` empile, pour chaque ligne : un contour optionnel, le corps
 du fil (bord assombri pour le relief), une trame satin inclinée, et un reflet.
-Le tout passe par un filtre de turbulence qui effiloche légèrement les bords et
-pose une ombre portée sur le tissu.
+Contour et corps partagent le même filtre de turbulence — sinon le contour reste
+net pendant que la lettre s'effiloche, et l'illusion tombe.
 
 Le texte est mesuré côté client (`getComputedTextLength`, re-mesuré après
 `document.fonts.ready`) puis réduit pour tenir dans le drapeau, quelle que soit
@@ -72,7 +96,7 @@ tribune.
 
 Les réglages proposés par défaut sont toujours gratuits — la couleur de fil
 recommandée par pays est choisie pour contraster avec le bas du drapeau, et le
-contour de contraste est inclus.
+contour de contraste est inclus (`recommendedOutline`).
 
 ## Étape suivante : le backend commandes
 

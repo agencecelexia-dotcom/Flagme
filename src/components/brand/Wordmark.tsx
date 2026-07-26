@@ -1,25 +1,42 @@
-/** Logotype FlagMe : un fanion cousu, puis le mot en deux temps. */
+/**
+ * Logotype FlagMe.
+ *
+ * Un fanion épais à contour noir, puis le mot en lettrage d'arcade avec la
+ * même ombre dure que les autocollants du site : le logo est un sticker
+ * comme le reste, pas une exception.
+ */
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <svg
-        viewBox="0 0 32 32"
-        className="h-[1.15em] w-[1.15em] shrink-0"
+        viewBox="0 0 34 34"
+        className="h-[1.25em] w-[1.25em] shrink-0"
         aria-hidden="true"
       >
-        <rect x="3" y="2" width="2.6" height="28" rx="1" fill="currentColor" />
-        <path d="M7 4 H28 L23 12.5 L28 21 H7 Z" fill="var(--color-flare)" />
-        <path
-          d="M7 4 H28 L23 12.5 L28 21 H7 Z"
-          fill="none"
-          stroke="var(--color-chalk)"
-          strokeOpacity="0.55"
-          strokeWidth="0.8"
-          strokeDasharray="2 1.6"
+        <rect
+          x="3"
+          y="2"
+          width="4.5"
+          height="30"
+          rx="2.2"
+          fill="var(--color-ink)"
         />
+        <path
+          d="M8 4.5 H30 L25 13 L30 21.5 H8 Z"
+          fill="var(--color-bubble)"
+          stroke="var(--color-ink)"
+          strokeWidth="2.6"
+          strokeLinejoin="round"
+        />
+        <circle cx="15" cy="13" r="1.9" fill="var(--color-lemon)" />
+        <circle cx="22" cy="13" r="1.9" fill="var(--color-mint)" />
       </svg>
-      <span className="brand-title text-[1.35em] tracking-[-0.02em]">
-        Flag<span className="text-flare">Me</span>
+
+      <span
+        className="arcade text-[1.15em]"
+        style={{ textShadow: "0.045em 0.045em 0 var(--color-ink)" }}
+      >
+        Flag<span className="text-bubble">Me</span>
       </span>
     </span>
   );

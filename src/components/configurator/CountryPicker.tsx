@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { COUNTRIES, REGIONS } from "@/data/countries";
+import { HOST_NATIONS } from "@/data/euro2028";
 import { FlagPreview } from "@/components/flag/FlagPreview";
 
 /** Retire les accents pour que « Bresil » trouve « Brésil ». */
@@ -12,6 +13,16 @@ function normalize(value: string): string {
     .toLowerCase();
 }
 
+const FILTERS = [
+  { id: "all", label: "Toutes" },
+  { id: "host", label: "Pays hôtes ★" },
+  ...REGIONS,
+];
+
+/**
+ * Grille de sélection de nation, montée comme un roster de jeu de foot :
+ * une case par équipe, la sélection encadrée, le nom en bandeau.
+ */
 export function CountryPicker({
   value,
   onChange,
@@ -20,54 +31,51 @@ export function CountryPicker({
   onChange: (code: string) => void;
 }) {
   const [query, setQuery] = useState("");
-  const [region, setRegion] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
   const results = useMemo(() => {
     const needle = normalize(query.trim());
     return COUNTRIES.filter((country) => {
-      if (region !== "all" && country.region !== region) return false;
+      if (filter === "host") {
+        if (!HOST_NATIONS.includes(country.code as (typeof HOST_NATIONS)[number])) {
+          return false;
+        }
+      } else if (filter !== "all" && country.region !== filter) {
+        return false;
+      }
       if (!needle) return true;
       return (
         normalize(country.name).includes(needle) ||
         country.cities.some((city) => normalize(city).includes(needle))
       );
     });
-  }, [query, region]);
+  }, [query, filter]);
 
   return (
     <div>
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <div className="relative flex-1">
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Chercher un pays ou une ville…"
-            aria-label="Chercher un pays"
-            className="w-full rounded-brand border border-ink-4 bg-ink px-4 py-3 pl-10 text-sm text-chalk placeholder:text-chalk-mute focus:border-flare focus:outline-none"
-          />
-          <svg
-            viewBox="0 0 20 20"
-            aria-hidden
-            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 fill-none stroke-chalk-mute stroke-2"
-          >
-            <circle cx="8.5" cy="8.5" r="5.5" />
-            <path d="M12.8 12.8 L17 17" strokeLinecap="round" />
-          </svg>
-        </div>
+      <div className="relative">
+        <input
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Cherche un pays ou une ville…"
+          aria-label="Chercher un pays"
+          className="edge w-full rounded-chip bg-paper px-4 py-3 pl-11 text-base font-semibold text-ink placeholder:text-ink-faint focus:outline-none"
+        />
+        <span aria-hidden className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-lg">
+          🔎
+        </span>
       </div>
 
       <div className="mt-3 flex flex-wrap gap-2">
-        {[{ id: "all", label: "Toutes" }, ...REGIONS].map((item) => (
+        {FILTERS.map((item) => (
           <button
             key={item.id}
             type="button"
-            onClick={() => setRegion(item.id)}
-            aria-pressed={region === item.id}
-            className={`rounded-full border px-3.5 py-1.5 text-xs font-bold transition-colors ${
-              region === item.id
-                ? "border-chalk bg-chalk text-ink"
-                : "border-ink-4 text-chalk-dim hover:border-chalk-mute"
+            onClick={() => setFilter(item.id)}
+            aria-pressed={filter === item.id}
+            className={`sticker-sm sticker-press px-3 py-1.5 text-xs font-bold ${
+              filter === item.id ? "bg-ink text-lemon" : "bg-paper text-ink"
             }`}
           >
             {item.label}
@@ -76,34 +84,43 @@ export function CountryPicker({
       </div>
 
       {results.length === 0 ? (
-        <p className="mt-6 rounded-brand border border-dashed border-ink-4 p-6 text-center text-sm text-chalk-mute">
-          Aucune nation ne correspond. Il en manque une&nbsp;?{" "}
-          <span className="text-chalk">Écris-nous, on la dessine.</span>
+        <p className="edge mt-5 rounded-blob bg-tint-lemon p-6 text-center text-sm font-semibold">
+          Aucune nation ne correspond.
+          <br />
+          Il en manque une&nbsp;? <span className="text-bubble">On la dessine.</span>
         </p>
       ) : (
-        <div className="mt-5 grid max-h-[26rem] grid-cols-3 gap-3 overflow-y-auto pr-1 sm:grid-cols-4">
+        <div className="mt-5 grid max-h-[30rem] grid-cols-3 gap-3 overflow-y-auto p-1 sm:grid-cols-4">
           {results.map((country) => {
             const selected = country.code === value;
+            const isHost = HOST_NATIONS.includes(
+              country.code as (typeof HOST_NATIONS)[number],
+            );
+
             return (
               <button
                 key={country.code}
                 type="button"
                 onClick={() => onChange(country.code)}
                 aria-pressed={selected}
-                className="group text-left"
+                className={`sticker-sm sticker-press relative overflow-hidden text-left ${
+                  selected ? "bg-bubble" : "bg-paper"
+                }`}
               >
-                <div
-                  className={`overflow-hidden rounded-brand ring-2 transition-all ${
-                    selected
-                      ? "ring-flare"
-                      : "ring-transparent group-hover:ring-chalk-mute"
-                  }`}
-                >
+                {isHost && (
+                  <span
+                    aria-label="Pays hôte de l'Euro 2028"
+                    className="absolute -right-1 -top-1 z-10 grid h-6 w-6 place-items-center rounded-full border-[3px] border-ink bg-lemon text-[10px]"
+                  >
+                    ★
+                  </span>
+                )}
+                <div className="border-b-[3px] border-ink">
                   <FlagPreview spec={country.spec} hardware={false} />
                 </div>
                 <p
-                  className={`mt-1.5 truncate text-[11px] font-semibold transition-colors ${
-                    selected ? "text-flare" : "text-chalk-mute group-hover:text-chalk"
+                  className={`truncate px-2 py-1.5 text-[11px] font-bold ${
+                    selected ? "text-paper" : "text-ink"
                   }`}
                 >
                   {country.name}

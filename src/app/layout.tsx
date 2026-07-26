@@ -11,13 +11,14 @@ export const metadata: Metadata = {
     template: "%s · FlagMe",
   },
   description:
-    "Drapeaux de supporter personnalisés : choisis ton pays, brode ta ville ou ton texte. Broderie fil épais, finitions stade, fabriqué pour durer.",
+    "Drapeaux de supporter personnalisés : choisis ton pays, brode ta ville ou ton texte. Broderie fil épais, finitions stade, prêt pour l'Euro 2028.",
   keywords: [
     "drapeau personnalisé",
     "drapeau supporter",
     "broderie",
     "drapeau brodé",
     "tifo",
+    "Euro 2028",
     "FlagMe",
   ],
   openGraph: {
@@ -33,7 +34,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={fontVariables}>
-      <body className="min-h-screen bg-ink text-chalk">
+      <body className="min-h-screen bg-cream text-ink">
         <CartProvider>
           <div className="relative z-10 flex min-h-screen flex-col">
             <Header />

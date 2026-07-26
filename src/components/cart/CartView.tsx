@@ -6,25 +6,24 @@ import { FlagPreview } from "@/components/flag/FlagPreview";
 import { getCountry } from "@/data/countries";
 import { getFinish, getFormat } from "@/data/formats";
 import { getStitchFont, getThread } from "@/data/customization";
-import {
-  FREE_SHIPPING_THRESHOLD,
-  SHIPPING_COST,
-  formatPrice,
-} from "@/lib/pricing";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, formatPrice } from "@/lib/pricing";
 
 function EmptyCart() {
   return (
-    <div className="rounded-brand border border-dashed border-ink-4 px-6 py-20 text-center">
-      <p className="brand-title text-3xl text-chalk">Ton panier est vide</p>
-      <p className="mx-auto mt-3 max-w-sm text-sm text-chalk-dim">
+    <div className="sticker bg-tint-lemon px-6 py-16 text-center">
+      <p aria-hidden className="animate-bob text-6xl">
+        🛒
+      </p>
+      <p className="arcade mt-5 text-3xl">Panier vide</p>
+      <p className="mx-auto mt-3 max-w-sm font-semibold text-ink-soft">
         Il te manque un drapeau avec ton nom de ville dessus. Ça se règle en
         trois minutes.
       </p>
       <Link
         href="/configurateur"
-        className="brand-title mt-8 inline-flex h-13 items-center rounded-brand bg-flare px-8 py-3 text-lg text-chalk transition-transform hover:-translate-y-0.5"
+        className="sticker sticker-press arcade mt-8 inline-flex h-14 items-center bg-bubble px-8 text-lg text-paper"
       >
-        Créer mon drapeau
+        Créer mon drapeau ▸
       </Link>
     </div>
   );
@@ -34,9 +33,7 @@ export function CartView() {
   const { items, ready, subtotal, remove, setQty, clear } = useCart();
 
   if (!ready) {
-    return (
-      <div className="h-64 animate-pulse rounded-brand border border-ink-3 bg-ink-2" />
-    );
+    return <div className="sticker h-64 animate-pulse bg-paper" />;
   }
 
   if (items.length === 0) return <EmptyCart />;
@@ -45,9 +42,9 @@ export function CartView() {
   const missing = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
       <div>
-        <ul className="space-y-4">
+        <ul className="space-y-5">
           {items.map((item) => {
             const country = getCountry(item.countryCode);
             const format = getFormat(item.formatId);
@@ -59,9 +56,9 @@ export function CartView() {
             return (
               <li
                 key={item.id}
-                className="flex flex-col gap-5 rounded-brand border border-ink-3 bg-ink-2 p-4 sm:flex-row sm:p-5"
+                className="sticker flex flex-col gap-5 bg-paper p-4 sm:flex-row sm:p-5"
               >
-                <div className="w-full shrink-0 sm:w-56">
+                <div className="edge w-full shrink-0 overflow-hidden rounded-chip sm:w-56">
                   <FlagPreview
                     spec={country.spec}
                     text={item.text}
@@ -73,19 +70,19 @@ export function CartView() {
                 <div className="flex min-w-0 flex-1 flex-col">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <h3 className="brand-title truncate text-2xl text-chalk">
+                      <h3 className="arcade truncate text-xl">
                         {item.text.line1 || "Sans texte"}
                       </h3>
-                      <p className="mt-0.5 text-sm text-chalk-dim">
-                        Drapeau {country.name} · {format.name} · {format.dims}
+                      <p className="mt-1 text-sm font-bold text-ink-soft">
+                        {country.name} · {format.name} · {format.dims}
                       </p>
                     </div>
-                    <p className="brand-title shrink-0 text-2xl text-chalk">
+                    <p className="arcade shrink-0 text-2xl text-bubble">
                       {formatPrice(item.unitPrice * item.qty)}
                     </p>
                   </div>
 
-                  <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-chalk-mute sm:grid-cols-3">
+                  <dl className="mt-3 flex flex-wrap gap-2">
                     {[
                       ["Style", font.label],
                       ["Fil", thread.label],
@@ -96,48 +93,51 @@ export function CartView() {
                       .map((entry) => {
                         const [label, value] = entry as [string, string];
                         return (
-                          <div key={label} className="min-w-0">
-                            <dt className="text-[10px] uppercase tracking-wider">{label}</dt>
-                            <dd className="truncate text-chalk-dim">{value}</dd>
+                          <div
+                            key={label}
+                            className="sticker-sm max-w-full bg-cream px-2.5 py-1.5"
+                          >
+                            <dt className="hud text-[9px] text-ink-faint">{label}</dt>
+                            <dd className="truncate text-xs font-bold">{value}</dd>
                           </div>
                         );
                       })}
                   </dl>
 
-                  <div className="mt-auto flex items-center justify-between gap-4 pt-5">
-                    <div className="flex items-center rounded-brand border border-ink-4">
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
+                    <div className="sticker-sm flex items-center bg-cream">
                       <button
                         type="button"
                         onClick={() => setQty(item.id, item.qty - 1)}
                         aria-label="Retirer un exemplaire"
-                        className="h-9 w-9 text-chalk-dim transition-colors hover:text-chalk"
+                        className="arcade h-9 w-9"
                       >
                         −
                       </button>
-                      <span className="w-8 text-center text-sm font-bold tabular-nums text-chalk">
+                      <span className="arcade w-8 text-center text-sm tabular-nums">
                         {item.qty}
                       </span>
                       <button
                         type="button"
                         onClick={() => setQty(item.id, item.qty + 1)}
                         aria-label="Ajouter un exemplaire"
-                        className="h-9 w-9 text-chalk-dim transition-colors hover:text-chalk"
+                        className="arcade h-9 w-9"
                       >
                         +
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-3 text-xs font-bold">
                       <Link
                         href={`/configurateur?pays=${item.countryCode}&format=${item.formatId}&ligne1=${encodeURIComponent(item.text.line1)}`}
-                        className="font-semibold text-chalk-dim underline-offset-4 hover:text-chalk hover:underline"
+                        className="sticker-sm sticker-press bg-tint-mint px-3 py-2"
                       >
                         Modifier
                       </Link>
                       <button
                         type="button"
                         onClick={() => remove(item.id)}
-                        className="font-semibold text-chalk-mute underline-offset-4 hover:text-flare hover:underline"
+                        className="sticker-sm sticker-press bg-tint-bubble px-3 py-2"
                       >
                         Retirer
                       </button>
@@ -152,40 +152,39 @@ export function CartView() {
         <button
           type="button"
           onClick={clear}
-          className="mt-5 text-xs font-semibold text-chalk-mute underline-offset-4 hover:text-flare hover:underline"
+          className="mt-5 text-xs font-bold text-ink-soft underline underline-offset-4 hover:text-bubble"
         >
           Vider le panier
         </button>
       </div>
 
       {/* ---------------------------- Récapitulatif ---------------------- */}
-      <aside className="lg:sticky lg:top-28 lg:self-start">
-        <div className="rounded-brand border border-ink-3 bg-ink-2 p-6">
-          <h2 className="brand-title text-2xl text-chalk">Récapitulatif</h2>
+      <aside className="lg:sticky lg:top-32 lg:self-start">
+        <div className="sticker bg-paper p-6">
+          <h2 className="arcade text-2xl">Récapitulatif</h2>
 
-          <dl className="mt-5 space-y-2.5 text-sm">
-            <div className="flex justify-between text-chalk-dim">
-              <dt>Sous-total</dt>
-              <dd className="tabular-nums text-chalk">{formatPrice(subtotal)}</dd>
+          <dl className="mt-5 space-y-2.5 text-sm font-semibold">
+            <div className="flex justify-between">
+              <dt className="text-ink-soft">Sous-total</dt>
+              <dd className="tabular-nums">{formatPrice(subtotal)}</dd>
             </div>
-            <div className="flex justify-between text-chalk-dim">
-              <dt>Livraison</dt>
-              <dd className="tabular-nums text-chalk">
-                {shipping === 0 ? "Offerte" : formatPrice(shipping)}
+            <div className="flex justify-between">
+              <dt className="text-ink-soft">Livraison</dt>
+              <dd className="tabular-nums">
+                {shipping === 0 ? "Offerte 🎉" : formatPrice(shipping)}
               </dd>
             </div>
           </dl>
 
           {missing > 0 && (
-            <div className="mt-4">
-              <p className="text-xs text-chalk-mute">
-                Plus que{" "}
-                <span className="font-bold text-thread">{formatPrice(missing)}</span>{" "}
-                pour la livraison offerte.
+            <div className="sticker-sm mt-4 bg-tint-lemon p-3">
+              <p className="text-xs font-bold">
+                Plus que <span className="text-bubble">{formatPrice(missing)}</span> pour
+                la livraison offerte.
               </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-4">
+              <div className="mt-2 h-3 overflow-hidden rounded-full border-[3px] border-ink bg-paper">
                 <div
-                  className="h-full rounded-full bg-flare transition-all"
+                  className="h-full bg-lime transition-all"
                   style={{
                     width: `${Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100)}%`,
                   }}
@@ -194,9 +193,9 @@ export function CartView() {
             </div>
           )}
 
-          <div className="mt-5 flex items-end justify-between border-t border-ink-3 pt-5">
-            <span className="eyebrow text-chalk-mute">Total</span>
-            <span className="brand-title text-4xl text-chalk">
+          <div className="edge-t mt-5 flex items-end justify-between pt-5">
+            <span className="hud text-ink-soft">Total</span>
+            <span className="arcade text-4xl text-bubble">
               {formatPrice(subtotal + shipping)}
             </span>
           </div>
@@ -205,11 +204,11 @@ export function CartView() {
           <button
             type="button"
             disabled
-            className="brand-title mt-5 flex h-14 w-full cursor-not-allowed items-center justify-center rounded-brand bg-ink-4 text-lg text-chalk-mute"
+            className="sticker-sm arcade mt-5 flex h-14 w-full cursor-not-allowed items-center justify-center bg-cream text-sm text-ink-faint"
           >
-            Paiement bientôt disponible
+            Paiement bientôt dispo
           </button>
-          <p className="mt-3 text-center text-[11px] leading-relaxed text-chalk-mute">
+          <p className="mt-3 text-center text-[11px] font-semibold leading-relaxed text-ink-soft">
             La prise de commande et le paiement arrivent à la prochaine étape.
             Ton panier est conservé sur cet appareil.
           </p>
@@ -217,9 +216,9 @@ export function CartView() {
 
         <Link
           href="/configurateur"
-          className="mt-4 flex h-12 items-center justify-center rounded-brand border border-ink-4 text-sm font-semibold text-chalk transition-colors hover:border-chalk-mute"
+          className="sticker-sm sticker-press mt-4 flex h-13 items-center justify-center bg-lemon py-3.5 text-sm font-bold"
         >
-          Ajouter un autre drapeau
+          Ajouter un autre drapeau ▸
         </Link>
       </aside>
     </div>
