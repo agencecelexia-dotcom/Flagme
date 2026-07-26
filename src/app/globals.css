@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Palette FlagMe ------------------------------------------------ */
+  /* Fond « tribune de nuit » */
+  --color-ink: #0a0a0b;
+  --color-ink-2: #121216;
+  --color-ink-3: #191920;
+  --color-ink-4: #23232c;
+
+  /* Tissu / craie : le blanc n'est jamais pur, c'est du textile */
+  --color-chalk: #f4f1ea;
+  --color-chalk-dim: #b7b3aa;
+  --color-chalk-mute: #7d7a73;
+
+  /* Accent primaire : le fumigène */
+  --color-flare: #ff3a20;
+  --color-flare-deep: #c72411;
+
+  /* Accent secondaire : le fil doré */
+  --color-thread: #e9b949;
+  --color-thread-deep: #a97f22;
+
+  /* Pelouse, pour les états de succès */
+  --color-turf: #1f9d5c;
+
+  /* ---- Typographie --------------------------------------------------- */
+  --font-display: var(--font-anton), "Haettenschweiler", "Arial Narrow", sans-serif;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-varsity: var(--font-alfa), Georgia, serif;
+  --font-script: var(--font-yellowtail), cursive;
+
+  /* ---- Divers -------------------------------------------------------- */
+  --radius-brand: 2px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-flare);
+    color: var(--color-chalk);
+  }
+
+  /* Le grain de la marque : une trame fine sur tout le fond, comme une
+     photo de tribune poussée en ISO. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  /* Titre de marque : condensé, serré, toujours en capitales. */
+  .brand-title {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 0.86;
+  }
+
+  /* Surtitre : petites capitales espacées, façon étiquette de vestiaire. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Bande défilante type banderole de virage. */
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker 38s linear infinite;
+  }
+
+  .stitch-border {
+    border: 1px dashed color-mix(in srgb, var(--color-chalk) 22%, transparent);
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes flag-sway {
+  0%,
+  100% {
+    transform: rotate(-0.4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0.4deg) translateY(-6px);
+  }
+}
+
+@keyframes fold-drift {
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(12%);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-sway {
+  animation: flag-sway 7s ease-in-out infinite;
+}
+
+.animate-folds {
+  animation: fold-drift 9s ease-in-out infinite alternate;
+}
+
+.animate-rise {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sway,
+  .animate-folds,
+  .ticker-track,
+  .animate-rise {
+    animation: none !important;
+  }
+}
