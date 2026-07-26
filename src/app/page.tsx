@@ -27,6 +27,32 @@ const STEPS = [
   },
 ];
 
+/**
+ * ⚠️ TÉMOIGNAGES FICTIFS — à remplacer par de vrais avis clients avant toute
+ * mise en ligne. Publier des avis inventés est trompeur pour l'acheteur et
+ * interdit par le code de la consommation.
+ */
+const PROOF = [
+  {
+    quote:
+      "Parti à Séville avec le drapeau brodé « Saint-Denis ». Trois personnes sont venues me demander où je l'avais fait.",
+    author: "Karim",
+    detail: "France · Tribune",
+  },
+  {
+    quote:
+      "Je l'ai offert à mon père avec le nom du village de mes grands-parents. Il l'a accroché dans le salon, pas au stade.",
+    author: "Inès",
+    detail: "Algérie · Poche",
+  },
+  {
+    quote:
+      "La broderie ne bouge pas après une saison entière de déplacements sous la pluie. C'est du vrai fil, pas du flocage.",
+    author: "Tom",
+    detail: "Angleterre · Tifo XXL",
+  },
+];
+
 export default function HomePage() {
   const stitchDemo = getCountry("gb-eng")!;
   const franceSpec = getCountry("fr")!.spec;
@@ -208,6 +234,22 @@ export default function HomePage() {
                 dès <span className="font-semibold text-ink">{formatPrice(format.price)}</span>
               </p>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* --------------------------- Preuve sociale ---------------------- */}
+      <section className="mx-auto max-w-7xl px-5 py-20">
+        <p className="eyebrow">Ils l&apos;ont déployé</p>
+        <div className="mt-10 grid gap-x-16 gap-y-10 md:grid-cols-3">
+          {PROOF.map((item) => (
+            <figure key={item.author} className="rule pt-7">
+              <blockquote className="leading-relaxed text-ink-soft">{item.quote}</blockquote>
+              <figcaption className="mt-4 text-sm">
+                <span className="font-semibold">{item.author}</span>
+                <span className="text-ink-faint"> · {item.detail}</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </section>
