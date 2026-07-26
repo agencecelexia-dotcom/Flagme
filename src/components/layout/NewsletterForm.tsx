@@ -13,8 +13,8 @@ export function NewsletterForm() {
 
   if (done) {
     return (
-      <p className="mt-4 text-sm text-ink-soft">
-        C&apos;est noté pour <span className="font-semibold text-ink">{email}</span>.
+      <p className="mt-4 text-sm text-bone/70">
+        C&apos;est noté pour <span className="font-semibold text-bone">{email}</span>.
       </p>
     );
   }

@@ -33,7 +33,7 @@ export function CartView() {
   const missing = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   return (
-    <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr]">
       <div>
         <ul>
           {items.map((item) => {

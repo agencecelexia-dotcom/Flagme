@@ -62,7 +62,7 @@ export default function HomePage() {
   return (
     <>
       {/* ------------------------------ Héros ---------------------------- */}
-      <section className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:pb-28">
+      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-20 pt-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:pb-28">
         <div>
           <p className="eyebrow">Drapeaux brodés à la commande</p>
 
@@ -114,7 +114,7 @@ export default function HomePage() {
 
       {/* ------------------------------ Styles --------------------------- */}
       <section className="mx-auto max-w-7xl px-5 py-20">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
           <div>
             <p className="eyebrow">La broderie</p>
             <h2 className="display mt-5 text-[clamp(2.2rem,4.5vw,3.5rem)]">
@@ -159,7 +159,7 @@ export default function HomePage() {
       {/* ---------------------------- Euro 2028 -------------------------- */}
       <section className="mx-auto max-w-7xl px-5 py-20">
         <div className="card overflow-hidden p-8 sm:p-12">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
             <div>
               <p className="eyebrow">9 juin — 9 juillet 2028</p>
               <h2 className="display mt-5 text-[clamp(2rem,4vw,3rem)]">

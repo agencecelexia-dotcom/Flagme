@@ -95,12 +95,17 @@ export const OUTLINES: Outline[] = [
 ];
 
 /**
- * Un fil clair sur un drapeau clair ne se lit pas — c'est le cas dès qu'une
- * bande blanche passe sous le texte. On propose donc d'office un contour
- * sombre avec les fils clairs, que l'utilisateur reste libre de retirer.
+ * Le contour de contraste est proposé d'office, dans la polarité inverse du
+ * fil : sombre sous un fil clair, clair sous un fil sombre.
+ *
+ * Un drapeau change de couleur sur toute sa largeur, et le texte le traverse.
+ * Sans contour, un fil blanc disparaît sur une bande blanche et un fil bleu
+ * marine se noie sur un vert ou un bleu. La polarité inverse garantit la
+ * lisibilité quel que soit le fond, et ces deux contours sont inclus dans le
+ * prix — l'utilisateur reste libre de les retirer.
  */
 export function recommendedOutline(threadId: string): string {
-  return ["white", "silver", "gold"].includes(threadId) ? "dark" : "none";
+  return ["white", "silver", "gold"].includes(threadId) ? "dark" : "light";
 }
 
 export type TextSize = { id: string; label: string; factor: number };

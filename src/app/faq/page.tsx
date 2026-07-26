@@ -80,13 +80,26 @@ const GROUPS = [
 
 export default function FaqPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 pb-16 pt-10">
-      <p className="eyebrow">Questions fréquentes</p>
-      <h1 className="display mt-6 text-[clamp(2.6rem,6vw,4.2rem)]">
-        Tout ce qu&apos;on nous demande
-      </h1>
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 pb-24 pt-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      {/* Le titre reste en vue pendant qu'on parcourt les réponses. */}
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <p className="eyebrow">Questions fréquentes</p>
+        <h1 className="display mt-6 text-[clamp(2.4rem,5vw,3.6rem)]">
+          Tout ce qu&apos;on nous demande
+        </h1>
+        <p className="mt-6 max-w-xs leading-relaxed text-ink-soft">
+          Une autre question&nbsp;?{" "}
+          <a
+            href="mailto:bonjour@flagme.fr"
+            className="font-semibold text-ink underline underline-offset-4"
+          >
+            Écris-nous
+          </a>
+          , on répond sous 24 heures ouvrées.
+        </p>
+      </div>
 
-      <div className="mt-16 space-y-14">
+      <div className="space-y-12">
         {GROUPS.map((group) => (
           <section key={group.title}>
             <h2 className="eyebrow">{group.title}</h2>
@@ -110,24 +123,17 @@ export default function FaqPage() {
             </div>
           </section>
         ))}
-      </div>
 
-      <section className="mt-24 text-center">
-        <h2 className="display text-2xl">Une autre question ?</h2>
-        <p className="mx-auto mt-4 max-w-sm leading-relaxed text-ink-soft">
-          On répond sous 24 heures ouvrées, et c&apos;est un humain de
-          l&apos;atelier qui écrit.
-        </p>
-        <a href="mailto:bonjour@flagme.fr" className="pill pill-light mt-7 h-12 px-6 text-[15px]">
-          bonjour@flagme.fr
-        </a>
-        <p className="mt-10 text-sm text-ink-soft">
+        <p className="rule pt-8 text-sm text-ink-soft">
           Prêt à commencer ?{" "}
-          <Link href="/configurateur" className="font-semibold text-ink underline underline-offset-4">
+          <Link
+            href="/configurateur"
+            className="font-semibold text-ink underline underline-offset-4"
+          >
             Ouvre le configurateur
           </Link>
         </p>
-      </section>
+      </div>
     </div>
   );
 }

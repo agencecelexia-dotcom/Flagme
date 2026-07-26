@@ -41,13 +41,29 @@ l'exige, pas la donnée.
 ## Les pages
 
 - **Home** — héros, les trois étapes, catalogue défilant, styles de broderie,
-  Euro 2028 avec compte à rebours, formats comparés à l'échelle.
-- **Configurateur** (`/configurateur`) — quatre étapes numérotées, aperçu
-  collant à gauche, prix détaillé ligne par ligne.
+  Euro 2028 avec compte à rebours, formats comparés à l'échelle, avis.
+- **Configurateur** (`/configurateur`) — quatre étapes numérotées avec rail
+  collant, aperçu collant à gauche sur desktop et barre collante en bas sur
+  mobile, prix détaillé ligne par ligne.
+- **Nations** (`/nations`) — le catalogue complet, chaque vignette montrant
+  déjà une ville brodée, avec recherche et filtres.
+- **Formats** (`/formats`) — comparateur à l'échelle silhouette comprise, puis
+  les quatre fiches côte à côte.
+- **Qualité** (`/qualite`) — les caractéristiques, la comparaison brodé contre
+  imprimé, les délais d'atelier.
 - **Euro 2028** (`/euro-2028`) — compte à rebours, les quatre nations hôtes,
   les huit villes hôtes cliquables qui pré-remplissent le configurateur.
-- **Formats** (`/formats`), **Manifeste** (`/manifeste`), **FAQ** (`/faq`).
+- **Manifeste** (`/manifeste`), **FAQ** (`/faq`) en deux colonnes.
 - **Panier** (`/panier`) — persistant, avec quantités et frais de port.
+
+### Le parcours
+
+La navigation ne contient que des pages, jamais l'action : « Créer mon
+drapeau » est une pilule à droite, présente partout, et n'apparaît pas deux
+fois. Le configurateur annonce ses quatre étapes dans un rail collant,
+chaque carte renvoie vers la suivante, et sur mobile une barre collante garde
+en vue la vignette du drapeau, le prix et le bouton — sans elle, on réglait
+sa broderie sans jamais voir le résultat.
 
 Le configurateur est partageable par URL : `?pays=gb-wls&format=tifo&ligne1=Cardiff`.
 
@@ -101,7 +117,16 @@ tribune.
 
 Les réglages proposés par défaut sont toujours gratuits — la couleur de fil
 recommandée par pays est choisie pour contraster avec le bas du drapeau, et le
-contour de contraste est inclus (`recommendedOutline`).
+contour de contraste est inclus. `recommendedOutline` le pose dans la polarité
+inverse du fil (sombre sous un fil clair, clair sous un fil sombre) : un
+drapeau change de couleur sur toute sa largeur et le texte le traverse, la
+polarité inverse est la seule règle qui tienne quel que soit le fond.
+
+`lib/delivery.ts` calcule une date de livraison — jours ouvrés d'atelier puis
+jours calendaires de transport. « Livré vers le 12 août » se comprend mieux
+qu'un « sous 5 jours » que l'acheteur doit convertir lui-même. Le calcul se
+fait côté client : ces pages sont rendues à la construction, une date calculée
+côté serveur serait figée au jour du déploiement.
 
 ## Étape suivante : le backend commandes
 

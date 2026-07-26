@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FlagPreview } from "@/components/flag/FlagPreview";
+import {
+  HUMAN_HEIGHT_CM,
+  HUMAN_WIDTH_CM,
+  HumanScale,
+} from "@/components/product/HumanScale";
+import { DeliveryEstimate } from "@/components/product/DeliveryEstimate";
 import { FINISHES, FORMATS, OPTION_PRICES } from "@/data/formats";
 import { getCountry } from "@/data/countries";
 import { formatPrice } from "@/lib/pricing";
@@ -8,7 +14,7 @@ import { formatPrice } from "@/lib/pricing";
 export const metadata: Metadata = {
   title: "Formats",
   description:
-    "Du mini drapeau au tifo de virage : dimensions, prix et usages de chaque format FlagMe.",
+    "Du mini drapeau au tifo de virage : dimensions, prix et usages de chaque format FlagMe, comparés à l'échelle.",
 };
 
 const OPTIONS = [
@@ -30,9 +36,18 @@ const OPTIONS = [
   },
 ];
 
+/**
+ * Le comparateur tient dans sa carte sans défilement : l'échelle est déduite
+ * de la largeur totale à représenter — silhouette plus les quatre formats
+ * mis bout à bout — et non fixée au doigt mouillé.
+ */
+const COMPARATOR_FILL_PCT = 86;
+
 export default function FormatsPage() {
   const demo = getCountry("pt")!;
-  const largestWidthCm = Math.max(...FORMATS.map((format) => format.widthCm));
+  const totalWidthCm =
+    HUMAN_WIDTH_CM + FORMATS.reduce((sum, format) => sum + format.widthCm, 0);
+  const cmToPct = COMPARATOR_FILL_PCT / totalWidthCm;
 
   return (
     <>
@@ -47,18 +62,27 @@ export default function FormatsPage() {
         </p>
       </section>
 
-      {/* Comparateur à l'échelle : la vraie différence de taille, d'un coup d'œil. */}
+      {/* Comparateur : tout est à la même échelle, silhouette comprise. */}
       <section className="mx-auto max-w-7xl px-5 py-10">
-        <div className="card p-8 sm:p-12">
-          <p className="eyebrow">À la même échelle</p>
-          <div className="mt-8 flex flex-wrap items-end gap-6">
+        <div className="card p-6 sm:p-10">
+          <p className="eyebrow">Les quatre formats à la même échelle</p>
+
+          <div className="mt-10 flex items-end gap-3 sm:gap-5">
+            <div
+              className="shrink-0 text-line"
+              style={{ width: `${cmToPct * HUMAN_WIDTH_CM}%` }}
+              title="1,70 m"
+            >
+              <HumanScale className="w-full" />
+            </div>
+
             {FORMATS.map((format) => (
               <div
                 key={format.id}
-                style={{ width: `${(format.widthCm / largestWidthCm) * 44}%` }}
-                className="min-w-24"
+                className="shrink-0"
+                style={{ width: `${cmToPct * format.widthCm}%` }}
               >
-                <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.07)]">
+                <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.08)]">
                   <FlagPreview spec={demo.spec} ratio={format.ratio} />
                 </div>
                 <p className="mt-3 text-sm font-semibold">{format.name}</p>
@@ -66,18 +90,25 @@ export default function FormatsPage() {
               </div>
             ))}
           </div>
+
+          <p className="mt-8 text-xs text-ink-faint">
+            {`Silhouette de ${(HUMAN_HEIGHT_CM / 100).toLocaleString("fr-FR")} m, à la même échelle.`}
+          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl space-y-24 px-5 py-16">
-        {FORMATS.map((format, index) => (
-          <article
-            key={format.id}
-            className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20"
-          >
-            <div className={index % 2 === 1 ? "lg:order-2" : undefined}>
-              <div className="overflow-hidden rounded-card shadow-[0_30px_70px_-40px_rgb(21_21_15/0.45)]">
+      {/* Les quatre fiches, côte à côte : choisir une taille ne devrait pas
+          demander quatre écrans de défilement. */}
+      <section className="mx-auto max-w-7xl px-5 py-14">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {FORMATS.map((format) => (
+            <article key={format.id} className="flex flex-col">
+              <Link
+                href={`/configurateur?format=${format.id}`}
+                className="flex aspect-3/2 items-center transition-transform duration-500 hover:-translate-y-1"
+              >
                 <FlagPreview
+                  className="w-full overflow-hidden rounded-card shadow-[0_1px_2px_rgb(21_21_15/0.06),0_16px_34px_-22px_rgb(21_21_15/0.45)]"
                   spec={demo.spec}
                   ratio={format.ratio}
                   text={{
@@ -90,28 +121,30 @@ export default function FormatsPage() {
                     sizeId: "m",
                   }}
                 />
-              </div>
-            </div>
+              </Link>
 
-            <div>
-              {format.badge && <p className="eyebrow">{format.badge}</p>}
-              <h2 className="display mt-4 text-[clamp(2rem,4vw,3rem)]">{format.name}</h2>
-              <p className="mt-2 text-sm text-ink-soft">{format.dims}</p>
-              <p className="mt-6 text-lg font-medium">{format.pitch}</p>
-              <p className="mt-3 max-w-md leading-relaxed text-ink-soft">{format.detail}</p>
-
-              <div className="mt-8 flex flex-wrap items-center gap-5">
-                <span className="display text-3xl">{formatPrice(format.price)}</span>
-                <Link
-                  href={`/configurateur?format=${format.id}`}
-                  className="pill pill-light h-12 px-6 text-[15px]"
-                >
-                  Configurer
-                </Link>
+              <div className="mt-5 flex items-baseline justify-between gap-3">
+                <h2 className="display text-xl">{format.name}</h2>
+                <span className="font-semibold">{formatPrice(format.price)}</span>
               </div>
-            </div>
-          </article>
-        ))}
+              <p className="mt-1 text-sm text-ink-soft">{format.dims}</p>
+
+              {format.badge && <p className="eyebrow mt-3">{format.badge}</p>}
+
+              <p className="mt-3 font-medium">{format.pitch}</p>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">
+                {format.detail}
+              </p>
+
+              <Link
+                href={`/configurateur?format=${format.id}`}
+                className="pill pill-light mt-6 h-11 px-5 text-sm"
+              >
+                Personnaliser
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       {/* ----------------------- Options et finitions --------------------- */}
@@ -143,11 +176,15 @@ export default function FormatsPage() {
       <section className="mx-auto max-w-3xl px-5 py-24 text-center">
         <h2 className="display text-[clamp(2rem,5vw,3.2rem)]">Toujours pas décidé ?</h2>
         <p className="mx-auto mt-5 max-w-md leading-relaxed text-ink-soft">
-          Le configurateur affiche chaque format à ses proportions réelles.
+          Le configurateur affiche chaque format à ses proportions réelles, et
+          tu peux changer de taille en un clic sans perdre ton texte.
         </p>
         <Link href="/configurateur" className="pill pill-dark mt-9 h-14 px-9 text-base">
           Ouvrir le configurateur
         </Link>
+        <p className="mt-6 text-sm text-ink-soft">
+          <DeliveryEstimate />
+        </p>
       </section>
     </>
   );

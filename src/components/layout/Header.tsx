@@ -6,11 +6,16 @@ import { useEffect, useState } from "react";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { useCart } from "@/lib/cart";
 
+/**
+ * « Créer » a disparu de la navigation : il pointait vers la même page que
+ * la pilule d'à côté. Le manifeste vit dans le pied de page — c'est de la
+ * marque, pas une étape d'achat.
+ */
 const NAV = [
-  { href: "/configurateur", label: "Créer" },
-  { href: "/euro-2028", label: "Euro 2028" },
+  { href: "/nations", label: "Nations" },
   { href: "/formats", label: "Formats" },
-  { href: "/manifeste", label: "Manifeste" },
+  { href: "/qualite", label: "Qualité" },
+  { href: "/euro-2028", label: "Euro 2028" },
   { href: "/faq", label: "FAQ" },
 ];
 

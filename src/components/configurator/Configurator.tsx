@@ -8,6 +8,8 @@ import { CountryPicker } from "./CountryPicker";
 import { OptionGroup } from "./OptionGroup";
 import { StepNav } from "./StepNav";
 import { MobileBar } from "./MobileBar";
+import { ShareButton } from "./ShareButton";
+import { DeliveryEstimate } from "@/components/product/DeliveryEstimate";
 import { DEFAULT_COUNTRY, getCountry } from "@/data/countries";
 import { HOST_CITIES } from "@/data/euro2028";
 import {
@@ -150,6 +152,13 @@ export function Configurator({
 
   const summary = `${country.name} · ${format.name}`;
 
+  /** Ce qui suffit à rejouer la configuration depuis une URL partagée. */
+  const shareQuery = new URLSearchParams({
+    pays: countryCode,
+    format: formatId,
+    ligne1: text.line1,
+  }).toString();
+
   return (
     <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 pb-40 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pb-24">
       {/* --------------------------- Aperçu + prix ------------------------ */}
@@ -207,8 +216,10 @@ export function Configurator({
           )}
 
           <p className="mt-5 text-center text-xs leading-relaxed text-ink-faint">
-            Brodé à la commande · Expédié sous 5 jours · Livraison offerte dès 80 €
+            <DeliveryEstimate /> · Livraison offerte dès 80 €
           </p>
+
+          <ShareButton query={shareQuery} />
         </div>
       </div>
 

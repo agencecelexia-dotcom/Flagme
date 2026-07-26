@@ -41,7 +41,7 @@ export default function ManifestoPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10">
-        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-20">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-20">
           <div className="space-y-6 text-lg leading-relaxed text-ink-soft">
             <p className="text-2xl leading-snug text-ink">
               Dans les tribunes anglaises, il y a une tradition que personne
