@@ -34,7 +34,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={fontVariables}>
-      <body className="min-h-screen bg-cream text-ink">
+      <body className="min-h-screen bg-bone text-ink">
         <CartProvider>
           <div className="relative z-10 flex min-h-screen flex-col">
             <Header />

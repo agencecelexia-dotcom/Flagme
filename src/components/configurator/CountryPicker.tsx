@@ -15,14 +15,10 @@ function normalize(value: string): string {
 
 const FILTERS = [
   { id: "all", label: "Toutes" },
-  { id: "host", label: "Pays hôtes ★" },
+  { id: "host", label: "Euro 2028" },
   ...REGIONS,
 ];
 
-/**
- * Grille de sélection de nation, montée comme un roster de jeu de foot :
- * une case par équipe, la sélection encadrée, le nom en bandeau.
- */
 export function CountryPicker({
   value,
   onChange,
@@ -53,19 +49,14 @@ export function CountryPicker({
 
   return (
     <div>
-      <div className="relative">
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Cherche un pays ou une ville…"
-          aria-label="Chercher un pays"
-          className="edge w-full rounded-chip bg-paper px-4 py-3 pl-11 text-base font-semibold text-ink placeholder:text-ink-faint focus:outline-none"
-        />
-        <span aria-hidden className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-lg">
-          🔎
-        </span>
-      </div>
+      <input
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Chercher un pays ou une ville…"
+        aria-label="Chercher un pays"
+        className="w-full rounded-full bg-bone-warm px-5 py-3 text-[15px] text-ink placeholder:text-ink-faint focus:outline-none"
+      />
 
       <div className="mt-3 flex flex-wrap gap-2">
         {FILTERS.map((item) => (
@@ -74,8 +65,10 @@ export function CountryPicker({
             type="button"
             onClick={() => setFilter(item.id)}
             aria-pressed={filter === item.id}
-            className={`sticker-sm sticker-press px-3 py-1.5 text-xs font-bold ${
-              filter === item.id ? "bg-ink text-lemon" : "bg-paper text-ink"
+            className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+              filter === item.id
+                ? "bg-ink text-bone"
+                : "bg-bone-warm text-ink-soft hover:text-ink"
             }`}
           >
             {item.label}
@@ -84,43 +77,34 @@ export function CountryPicker({
       </div>
 
       {results.length === 0 ? (
-        <p className="edge mt-5 rounded-blob bg-tint-lemon p-6 text-center text-sm font-semibold">
-          Aucune nation ne correspond.
-          <br />
-          Il en manque une&nbsp;? <span className="text-bubble">On la dessine.</span>
+        <p className="dashed mt-5 p-8 text-center text-sm text-ink-soft">
+          Aucune nation ne correspond. Il en manque une&nbsp;?{" "}
+          <span className="text-ink">Écris-nous, on la dessine.</span>
         </p>
       ) : (
-        <div className="mt-5 grid max-h-[30rem] grid-cols-3 gap-3 overflow-y-auto p-1 sm:grid-cols-4">
+        <div className="mt-5 grid max-h-[26rem] grid-cols-3 gap-3 overflow-y-auto pb-1 pr-1 sm:grid-cols-4">
           {results.map((country) => {
             const selected = country.code === value;
-            const isHost = HOST_NATIONS.includes(
-              country.code as (typeof HOST_NATIONS)[number],
-            );
-
             return (
               <button
                 key={country.code}
                 type="button"
                 onClick={() => onChange(country.code)}
                 aria-pressed={selected}
-                className={`sticker-sm sticker-press relative overflow-hidden text-left ${
-                  selected ? "bg-bubble" : "bg-paper"
-                }`}
+                className="group text-left"
               >
-                {isHost && (
-                  <span
-                    aria-label="Pays hôte de l'Euro 2028"
-                    className="absolute -right-1 -top-1 z-10 grid h-6 w-6 place-items-center rounded-full border-[3px] border-ink bg-lemon text-[10px]"
-                  >
-                    ★
-                  </span>
-                )}
-                <div className="border-b-[3px] border-ink">
-                  <FlagPreview spec={country.spec} hardware={false} />
+                <div
+                  className={`overflow-hidden rounded-soft transition-all ${
+                    selected
+                      ? "ring-2 ring-ink ring-offset-2 ring-offset-paper"
+                      : "shadow-[0_1px_2px_rgb(21_21_15/0.07)]"
+                  }`}
+                >
+                  <FlagPreview spec={country.spec} />
                 </div>
                 <p
-                  className={`truncate px-2 py-1.5 text-[11px] font-bold ${
-                    selected ? "text-paper" : "text-ink"
+                  className={`mt-1.5 truncate text-[11px] transition-colors ${
+                    selected ? "font-semibold text-ink" : "text-ink-soft group-hover:text-ink"
                   }`}
                 >
                   {country.name}

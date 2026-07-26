@@ -12,64 +12,88 @@ export const metadata: Metadata = {
     "Du 9 juin au 9 juillet 2028 en Angleterre, Écosse, pays de Galles et Irlande. Brode ta ville hôte sur le drapeau de ta nation.",
 };
 
-const TONES = ["bg-tint-mint", "bg-tint-lemon", "bg-tint-bubble", "bg-tint-blue"];
-
 export default function EuroPage() {
   const hostNations = HOST_NATIONS.map((code) => getCountry(code)!).filter(Boolean);
 
   return (
     <>
       {/* ------------------------------ Héros ---------------------------- */}
-      <section className="edge-b relative overflow-hidden bg-grape py-14 text-paper">
-        <div
-          aria-hidden
-          className="dots pointer-events-none absolute inset-0 text-paper opacity-15"
-        />
-        <div className="relative mx-auto max-w-7xl px-4">
-          <p className="sticker-sm inline-flex bg-lemon px-3 py-1.5 text-xs font-bold text-ink">
-            ★ 9 juin — 9 juillet 2028
-          </p>
+      <section className="mx-auto max-w-7xl px-5 pb-16 pt-10">
+        <p className="eyebrow">9 juin — 9 juillet 2028</p>
+        <h1 className="display mt-6 max-w-3xl text-[clamp(2.9rem,7vw,5.5rem)]">
+          L&apos;Euro rentre à la maison
+        </h1>
+        <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">
+          {`${EURO.teams} nations, ${EURO.venues} stades, ${HOST_CITIES.length} villes, quatre pays hôtes. `}
+          C&apos;est précisément là qu&apos;on a commencé à coudre le nom de sa
+          ville sur son drapeau.
+        </p>
 
-          <h1 className="arcade-hero mt-6 text-[clamp(2.8rem,9vw,6rem)]">
-            L&apos;Euro rentre
-            <br />
-            <span className="text-lemon">à la maison</span>
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-lg font-semibold leading-relaxed text-paper/90">
-            {`${EURO.teams} nations, ${EURO.venues} stades, ${HOST_CITIES.length} villes, quatre pays hôtes : `}
-            l&apos;Angleterre, l&apos;Écosse, le pays de Galles et
-            l&apos;Irlande. C&apos;est précisément là qu&apos;on a commencé à
-            coudre le nom de sa ville sur son drapeau — la tradition dont FlagMe
-            est né.
-          </p>
-
-          <div className="mt-9">
-            <p className="hud mb-2.5 text-lemon">Coup d&apos;envoi à Cardiff dans</p>
+        <div className="mt-12">
+          <p className="text-sm text-ink-soft">Coup d&apos;envoi à Cardiff dans</p>
+          <div className="mt-4">
             <Countdown />
           </div>
         </div>
       </section>
 
       {/* --------------------------- Nations hôtes ------------------------ */}
-      <section className="edge-b bg-cream py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <p className="hud text-bubble">Les quatre nations hôtes</p>
-          <h2 className="arcade mt-3 text-4xl sm:text-5xl">Choisis ton camp</h2>
+      <section className="mx-auto max-w-7xl px-5 py-16">
+        <p className="eyebrow">Les quatre nations hôtes</p>
+        <h2 className="display mt-5 text-[clamp(2rem,4vw,3rem)]">Choisis ton camp</h2>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {hostNations.map((country, index) => (
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {hostNations.map((country) => (
+            <Link key={country.code} href={`/configurateur?pays=${country.code}`} className="group">
+              <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.06),0_14px_30px_-20px_rgb(21_21_15/0.4)] transition-transform duration-500 group-hover:-translate-y-1">
+                <FlagPreview
+                  spec={country.spec}
+                  text={{
+                    line1: country.cities[0],
+                    line2: "",
+                    fontId: "terrace",
+                    threadId: country.defaultThread,
+                    outlineId: recommendedOutline(country.defaultThread),
+                    placementId: "bottom",
+                    sizeId: "m",
+                  }}
+                />
+              </div>
+              <h3 className="mt-4 font-semibold">{country.name}</h3>
+              <p className="mt-0.5 text-sm text-ink-soft">
+                {country.cities.slice(0, 3).join(" · ")}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------------------- Villes hôtes ------------------------ */}
+      <section className="mx-auto max-w-7xl px-5 py-16">
+        <p className="eyebrow">Les huit villes hôtes</p>
+        <h2 className="display mt-5 max-w-2xl text-[clamp(2rem,4vw,3rem)]">
+          Un stade, une ville, un drapeau
+        </h2>
+        <p className="mt-5 max-w-md leading-relaxed text-ink-soft">
+          Clique sur une ville, le configurateur s&apos;ouvre déjà rempli.
+        </p>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {HOST_CITIES.map((entry) => {
+            const country = getCountry(entry.countryCode);
+            if (!country) return null;
+
+            return (
               <Link
-                key={country.code}
-                href={`/configurateur?pays=${country.code}`}
-                className={`sticker sticker-press overflow-hidden ${TONES[index % TONES.length]}`}
+                key={entry.city}
+                href={`/configurateur?pays=${entry.countryCode}&ligne1=${encodeURIComponent(entry.city)}`}
+                className="group"
               >
-                <div className="border-b-[3px] border-ink">
+                <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.06),0_14px_30px_-20px_rgb(21_21_15/0.4)] transition-transform duration-500 group-hover:-translate-y-1">
                   <FlagPreview
                     spec={country.spec}
-                    hardware={false}
                     text={{
-                      line1: country.cities[0],
+                      line1: entry.city,
                       line2: "",
                       fontId: "terrace",
                       threadId: country.defaultThread,
@@ -79,91 +103,25 @@ export default function EuroPage() {
                     }}
                   />
                 </div>
-                <div className="p-4">
-                  <h3 className="arcade text-lg">{country.name}</h3>
-                  <p className="mt-1 text-xs font-semibold text-ink-soft">
-                    {country.cities.slice(0, 3).join(" · ")}
-                  </p>
-                </div>
+                <h3 className="mt-4 font-semibold">{entry.city}</h3>
+                <p className="mt-0.5 text-sm text-ink-soft">{entry.stadium}</p>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------- Villes hôtes ------------------------ */}
-      <section className="edge-b bg-tint-lemon py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <p className="hud text-bubble">Les huit villes hôtes</p>
-          <h2 className="arcade mt-3 max-w-2xl text-4xl sm:text-5xl">
-            Un stade, une ville, un drapeau
-          </h2>
-          <p className="mt-4 max-w-xl font-semibold text-ink-soft">
-            Chaque ville hôte se brode en un clic sur le drapeau de son pays.
-            Clique, le configurateur s&apos;ouvre déjà rempli.
-          </p>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {HOST_CITIES.map((entry) => {
-              const country = getCountry(entry.countryCode);
-              if (!country) return null;
-
-              return (
-                <Link
-                  key={entry.city}
-                  href={`/configurateur?pays=${entry.countryCode}&ligne1=${encodeURIComponent(entry.city)}`}
-                  className="sticker sticker-press flex flex-col bg-paper p-4"
-                >
-                  <div className="edge overflow-hidden rounded-chip">
-                    <FlagPreview
-                      spec={country.spec}
-                      hardware={false}
-                      text={{
-                        line1: entry.city,
-                        line2: "",
-                        fontId: "terrace",
-                        threadId: country.defaultThread,
-                        outlineId: recommendedOutline(country.defaultThread),
-                        placementId: "bottom",
-                        sizeId: "m",
-                      }}
-                    />
-                  </div>
-                  <h3 className="arcade mt-3 text-lg">{entry.city}</h3>
-                  <p className="mt-1 flex-1 text-[11px] font-semibold text-ink-soft">
-                    {entry.stadium}
-                  </p>
-                  <p className="mt-2 text-xs font-bold text-bubble">Broder cette ville ▸</p>
-                </Link>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </section>
 
       {/* ------------------------------ Final ---------------------------- */}
-      <section className="relative overflow-hidden bg-ink py-20 text-paper">
-        <div
-          aria-hidden
-          className="dots pointer-events-none absolute inset-0 text-lemon opacity-20"
-        />
-        <div className="relative mx-auto max-w-3xl px-4 text-center">
-          <h2 className="arcade-hero text-[clamp(2.2rem,7vw,4rem)]">
-            Deux ans pour
-            <br />
-            <span className="text-lemon">préparer le tien</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg font-semibold text-paper/85">
-            Les drapeaux qu&apos;on verra en tribune en 2028 se cousent
-            maintenant. Le tien aussi.
-          </p>
-          <Link
-            href="/configurateur"
-            className="sticker sticker-press arcade mt-9 inline-flex h-16 items-center bg-lemon px-10 text-xl text-ink"
-          >
-            Créer mon drapeau ▸
-          </Link>
-        </div>
+      <section className="mx-auto max-w-3xl px-5 py-24 text-center">
+        <h2 className="display text-[clamp(2rem,5vw,3.2rem)]">
+          Deux ans pour préparer le tien
+        </h2>
+        <p className="mx-auto mt-5 max-w-md leading-relaxed text-ink-soft">
+          Les drapeaux qu&apos;on verra en tribune en 2028 se cousent maintenant.
+        </p>
+        <Link href="/configurateur" className="pill pill-dark mt-9 h-14 px-9 text-base">
+          Créer mon drapeau
+        </Link>
       </section>
     </>
   );

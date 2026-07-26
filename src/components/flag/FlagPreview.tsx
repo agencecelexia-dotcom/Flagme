@@ -10,7 +10,11 @@ type FlagPreviewProps = {
   text?: TextConfig;
   /** Rapport largeur / hauteur du produit choisi (1.667 pour un 150 × 90). */
   ratio?: number;
-  /** Fourreau et œillets, comme sur le drapeau fini. */
+  /**
+   * Fourreau et œillets. Désactivé par défaut : sur un fond clair, la bande
+   * blanche disparaît et il ne reste que le pointillé de surpiqûre, qui se
+   * lit comme un cadre en pointillés plutôt que comme une finition.
+   */
   hardware?: boolean;
   /** Ondulation du tissu. */
   waving?: boolean;
@@ -26,7 +30,7 @@ export function FlagPreview({
   spec,
   text,
   ratio = 1.667,
-  hardware = true,
+  hardware = false,
   waving = false,
   className = "",
 }: FlagPreviewProps) {

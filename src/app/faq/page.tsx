@@ -80,29 +80,29 @@ const GROUPS = [
 
 export default function FaqPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <p className="hud text-bubble">Questions fréquentes</p>
-      <h1 className="arcade-hero mt-3 text-[clamp(2.4rem,7vw,4.5rem)]">
+    <div className="mx-auto max-w-3xl px-5 pb-16 pt-10">
+      <p className="eyebrow">Questions fréquentes</p>
+      <h1 className="display mt-6 text-[clamp(2.6rem,6vw,4.2rem)]">
         Tout ce qu&apos;on nous demande
       </h1>
 
-      <div className="mt-14 space-y-14">
+      <div className="mt-16 space-y-14">
         {GROUPS.map((group) => (
           <section key={group.title}>
-            <h2 className="arcade text-2xl text-bubble">{group.title}</h2>
-            <div className="mt-5 space-y-3">
+            <h2 className="eyebrow">{group.title}</h2>
+            <div className="mt-4">
               {group.items.map((item) => (
-                <details key={item.q} className="sticker group bg-paper p-5">
+                <details key={item.q} className="rule group py-5">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-left">
-                    <span className="font-bold">{item.q}</span>
+                    <span className="font-semibold">{item.q}</span>
                     <span
                       aria-hidden
-                      className="arcade mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-lemon text-sm transition-transform group-open:rotate-45"
+                      className="mt-1 shrink-0 text-ink-faint transition-transform group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 max-w-2xl text-sm font-semibold leading-relaxed text-ink-soft">
+                  <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">
                     {item.a}
                   </p>
                 </details>
@@ -112,21 +112,18 @@ export default function FaqPage() {
         ))}
       </div>
 
-      <section className="sticker mt-20 bg-tint-mint p-8 text-center">
-        <h2 className="arcade text-3xl">Une autre question&nbsp;?</h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm font-semibold text-ink-soft">
+      <section className="mt-24 text-center">
+        <h2 className="display text-2xl">Une autre question ?</h2>
+        <p className="mx-auto mt-4 max-w-sm leading-relaxed text-ink-soft">
           On répond sous 24 heures ouvrées, et c&apos;est un humain de
           l&apos;atelier qui écrit.
         </p>
-        <a
-          href="mailto:bonjour@flagme.fr"
-          className="sticker-sm sticker-press mt-6 inline-flex h-12 items-center bg-paper px-6 text-sm font-bold"
-        >
+        <a href="mailto:bonjour@flagme.fr" className="pill pill-light mt-7 h-12 px-6 text-[15px]">
           bonjour@flagme.fr
         </a>
-        <p className="mt-8 text-xs font-semibold text-ink-soft">
-          Prêt à commencer&nbsp;?{" "}
-          <Link href="/configurateur" className="font-bold text-bubble underline underline-offset-4">
+        <p className="mt-10 text-sm text-ink-soft">
+          Prêt à commencer ?{" "}
+          <Link href="/configurateur" className="font-semibold text-ink underline underline-offset-4">
             Ouvre le configurateur
           </Link>
         </p>

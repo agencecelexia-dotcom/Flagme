@@ -1,28 +1,23 @@
 import {
-  Bungee,
-  Fredoka,
+  Plus_Jakarta_Sans,
   Anton,
   Alfa_Slab_One,
   Yellowtail,
+  Fredoka,
 } from "next/font/google";
 
-/** Titrage : lettrage de borne d'arcade, tout en capitales. */
-export const bungee = Bungee({
+/**
+ * Une seule police pour tout le site : titrage, interface, texte courant.
+ * La hiérarchie vient du poids et de la taille, jamais d'un second caractère.
+ */
+export const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-arcade",
+  variable: "--font-ui",
   display: "swap",
 });
 
-/** Interface et texte courant : grotesque arrondi, esprit bonbon. */
-export const fredoka = Fredoka({
-  subsets: ["latin"],
-  variable: "--font-candy",
-  display: "swap",
-});
-
-/* --- Polices de broderie : elles imitent de vrais styles de machine, --- */
-/* --- elles restent donc sobres même si le site est explosif.         --- */
+/* --- Polices de broderie : elles imitent de vrais styles de machine et --- */
+/* --- n'apparaissent que sur le produit, jamais dans l'interface.       --- */
 
 /** Broderie « Terrace » : condensé, esprit flocage de maillot. */
 export const anton = Anton({
@@ -48,10 +43,17 @@ export const yellowtail = Yellowtail({
   display: "swap",
 });
 
+/** Broderie « Bubble » : lettres rondes et pleines. */
+export const fredoka = Fredoka({
+  subsets: ["latin"],
+  variable: "--font-fredoka",
+  display: "swap",
+});
+
 export const fontVariables = [
-  bungee.variable,
-  fredoka.variable,
+  jakarta.variable,
   anton.variable,
   alfaSlab.variable,
   yellowtail.variable,
+  fredoka.variable,
 ].join(" ");

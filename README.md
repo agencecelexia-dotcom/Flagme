@@ -13,34 +13,37 @@ npm run dev      # http://localhost:3000
 npm run build    # build de production
 ```
 
-## Direction artistique — « Candy Arcade »
+## Direction artistique — « Atelier »
 
-Un magasin de bonbons avec une borne d'arcade au fond. Le système tient en
-quelques règles, toutes dans `src/app/globals.css` :
+Calme, chaude, premium : le produit est la seule image forte de la page, et
+l'interface se tait pour le laisser passer. Tout le système tient dans
+`src/app/globals.css` :
 
-- **Fond crème** (`--color-cream`), sections en teintes bonbon diluées
-  (`--color-tint-*`), accents saturés (fuchsia, citron, menthe, raisin, lime).
-- **L'autocollant** est la brique de base : contour noir de 3 px, gros arrondi,
-  ombre dure non floutée. Les classes `.sticker` / `.sticker-sm` la posent,
-  `.sticker-press` l'enfonce au clic. Presque tout le site en est fait.
-- **Deux polices** : `Bungee` pour le lettrage d'arcade (`.arcade`,
-  `.arcade-hero`, `.hud`), `Fredoka` pour le texte courant.
-- **Rien ne glisse, tout rebondit** : `pop-in`, `wiggle`, `bob`, `sway`. Toutes
-  les animations tombent sous `prefers-reduced-motion`.
-- Utilitaires de trame : `.dots`, `.stripes`, qui prennent la `currentColor` de
-  leur parent.
+- **Fond os** (`--color-bone`), surfaces blanches, filets très clairs.
+- **Une seule couleur d'accent** : la terre cuite `--color-clay`, celle d'un
+  fil. Elle ne sert qu'aux surtitres (`.eyebrow`) et à quelques micro-signaux.
+  Aucune section n'est colorée.
+- **Une seule police** — Plus Jakarta Sans. La hiérarchie vient du poids et de
+  la taille : `.display` pour les titres (800, très serré), le reste en 400/600.
+- **Aucun contour, aucune ombre dure.** Les surfaces sont des `.card` à ombre
+  très basse, les boutons des `.pill` claires ou encre.
+- **Mouvement lent et ample** : `rise`, `sway`, `drift`. Rien ne rebondit.
+  Tout tombe sous `prefers-reduced-motion`.
 
 Les polices de broderie (`Anton`, `Alfa Slab One`, `Yellowtail`, `Fredoka`)
-restent sobres : elles imitent de vrais styles de machine, elles ne suivent pas
-la DA du site.
+n'apparaissent que sur le produit — elles imitent de vrais styles de machine et
+ne suivent pas la DA du site.
+
+Les noms de ville sont stockés en casse normale (« Saint-Étienne », pas
+« SAINT-ÉTIENNE ») : c'est la broderie qui met en capitales quand le style
+l'exige, pas la donnée.
 
 ## Les pages
 
-- **Home** — héros, section Euro 2028 avec compte à rebours, catalogue
-  défilant, styles de broderie, formats à l'échelle, preuve sociale.
-- **Configurateur** (`/configurateur`) — monté comme un écran de sélection de
-  jeu : barre de HUD, roster de nations, panneaux numérotés, aperçu géant qui
-  prend la couleur du pays, prix détaillé ligne par ligne.
+- **Home** — héros, les trois étapes, catalogue défilant, styles de broderie,
+  Euro 2028 avec compte à rebours, formats comparés à l'échelle.
+- **Configurateur** (`/configurateur`) — quatre étapes numérotées, aperçu
+  collant à gauche, prix détaillé ligne par ligne.
 - **Euro 2028** (`/euro-2028`) — compte à rebours, les quatre nations hôtes,
   les huit villes hôtes cliquables qui pré-remplissent le configurateur.
 - **Formats** (`/formats`), **Manifeste** (`/manifeste`), **FAQ** (`/faq`).
@@ -74,7 +77,9 @@ horizontales sont exprimées en fractions de la largeur, les rayons et épaisseu
 en fractions de la hauteur — la convention vexillologique.
 
 `FlagPreview.tsx` compose ensuite l'objet fini : le dessin, la broderie, le grain
-du tissu, les plis, le fourreau et les œillets.
+du tissu et les plis. Le fourreau et les œillets existent derrière le drapeau
+`hardware`, mais restent désactivés : sur fond clair, la bande blanche disparaît
+et il ne reste que le pointillé de surpiqûre.
 
 ### La broderie
 

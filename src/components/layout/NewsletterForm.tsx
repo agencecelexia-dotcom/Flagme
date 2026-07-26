@@ -13,8 +13,8 @@ export function NewsletterForm() {
 
   if (done) {
     return (
-      <p className="sticker-sm mt-4 bg-mint px-3 py-3 text-sm font-bold text-ink">
-        🎉 C&apos;est noté pour <span className="break-all">{email}</span>.
+      <p className="mt-4 text-sm text-ink-soft">
+        C&apos;est noté pour <span className="font-semibold text-ink">{email}</span>.
       </p>
     );
   }
@@ -34,12 +34,9 @@ export function NewsletterForm() {
         value={email}
         onChange={(event) => setEmail(event.target.value)}
         placeholder="ton@email.fr"
-        className="min-w-0 flex-1 rounded-chip border-[3px] border-paper/25 bg-paper/10 px-3 py-2.5 text-sm font-semibold text-paper placeholder:text-paper/50 focus:border-lemon focus:outline-none"
+        className="min-w-0 flex-1 rounded-full bg-paper px-4 py-2.5 text-sm text-ink shadow-[0_1px_2px_rgb(21_21_15/0.06)] placeholder:text-ink-faint focus:outline-none"
       />
-      <button
-        type="submit"
-        className="sticker-sm sticker-press arcade bg-lemon px-3.5 text-sm text-ink"
-      >
+      <button type="submit" className="pill pill-dark h-10 px-4 text-sm">
         OK
       </button>
     </form>

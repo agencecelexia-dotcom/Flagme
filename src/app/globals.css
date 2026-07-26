@@ -1,51 +1,40 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   FlagMe — direction artistique « Candy Arcade »
-   Un magasin de bonbons qui aurait une borne d'arcade au fond : fond crème,
-   couleurs saturées, contours noirs épais, ombres dures façon autocollant,
-   et des codes de jeu vidéo pour tout ce qui se choisit.
+   FlagMe — direction artistique « Atelier »
+   Fond os, une seule couleur d'accent, une seule police, beaucoup de vide.
+   Le produit est la seule image forte de la page ; l'interface se tait pour
+   le laisser passer.
    ========================================================================== */
 
 @theme {
   /* ---- Fonds ---------------------------------------------------------- */
-  --color-cream: #fff3e0;
+  --color-bone: #f5f3ed;
+  --color-bone-warm: #efece3;
   --color-paper: #ffffff;
 
-  /* Teintes de section, très diluées, pour rythmer la page */
-  --color-tint-mint: #dcfaf3;
-  --color-tint-lemon: #fff2c2;
-  --color-tint-grape: #efe4ff;
-  --color-tint-bubble: #ffe1ee;
-  --color-tint-blue: #dfe9ff;
+  /* ---- Encre ---------------------------------------------------------- */
+  --color-ink: #15150f;
+  --color-ink-soft: #6c6c62;
+  --color-ink-faint: #a3a29a;
+  --color-line: #e5e2d8;
 
-  /* ---- Encre : un noir violacé, jamais un noir pur ------------------- */
-  --color-ink: #16121f;
-  --color-ink-soft: #524a63;
-  --color-ink-faint: #8d85a0;
-
-  /* ---- Bonbons -------------------------------------------------------- */
-  --color-bubble: #ff2e88;
-  --color-blue: #2b6bff;
-  --color-lime: #a4ee2f;
-  --color-lemon: #ffd52e;
-  --color-grape: #8b45ff;
-  --color-mint: #10d9c4;
-  --color-tangerine: #ff7a18;
+  /* ---- Accent unique : terre cuite, la couleur d'un fil ---------------- */
+  --color-clay: #c0765a;
+  --color-clay-soft: #f2e4dd;
 
   /* ---- Typographie ---------------------------------------------------- */
-  --font-arcade: var(--font-arcade), "Impact", sans-serif;
-  --font-sans: var(--font-candy), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
 
-  /* Polices de broderie */
+  /* Polices de broderie, réservées au produit */
   --font-terrace: var(--font-anton), "Arial Narrow", sans-serif;
   --font-varsity: var(--font-alfa), Georgia, serif;
   --font-script: var(--font-yellowtail), cursive;
-  --font-bubble: var(--font-candy), ui-rounded, sans-serif;
+  --font-bubble: var(--font-fredoka), ui-rounded, sans-serif;
 
   /* ---- Formes --------------------------------------------------------- */
-  --radius-blob: 1.75rem;
-  --radius-chip: 1rem;
+  --radius-card: 1.5rem;
+  --radius-soft: 0.875rem;
 }
 
 @layer base {
@@ -54,21 +43,19 @@
   }
 
   body {
-    background-color: var(--color-cream);
+    background-color: var(--color-bone);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-weight: 500;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background-color: var(--color-lemon);
+    background-color: var(--color-clay-soft);
     color: var(--color-ink);
   }
 
-  /* Anneau de focus visible et assumé : on est sur un site qui crie. */
   :focus-visible {
-    outline: 3px solid var(--color-grape);
+    outline: 2px solid var(--color-clay);
     outline-offset: 3px;
   }
 
@@ -81,111 +68,129 @@
 }
 
 @layer components {
-  /* ---- Titrage arcade -------------------------------------------------- */
-  .arcade {
-    font-family: var(--font-arcade);
-    text-transform: uppercase;
-    line-height: 0.95;
-    letter-spacing: 0.01em;
+  /* ---- Titrage : lourd, très serré, jamais en capitales ---------------- */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
   }
 
-  /* Titre géant avec ombre portée dure, comme un logo de jeu. */
-  .arcade-hero {
-    font-family: var(--font-arcade);
-    text-transform: uppercase;
-    line-height: 0.88;
-    letter-spacing: -0.01em;
-    text-shadow:
-      0.055em 0.055em 0 var(--color-ink),
-      0.11em 0.11em 0 rgb(0 0 0 / 0.18);
-  }
-
-  /* Étiquette de HUD : petit, serré, espacé. */
-  .hud {
-    font-family: var(--font-arcade);
+  /* ---- Surtitre : le seul endroit où l'accent apparaît en texte -------- */
+  .eyebrow {
     font-size: 0.6875rem;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
+    color: var(--color-clay);
   }
 
-  /* ---- Contours épais : le trait noir qui cerne tout ------------------ */
-  .edge {
-    border: 3px solid var(--color-ink);
-  }
-  .edge-b {
-    border-bottom: 3px solid var(--color-ink);
-  }
-  .edge-t {
-    border-top: 3px solid var(--color-ink);
+  /* ---- Surface : pas de contour, une ombre très basse ------------------ */
+  .card {
+    background-color: var(--color-paper);
+    border-radius: var(--radius-card);
+    box-shadow:
+      0 1px 2px rgb(21 21 15 / 0.04),
+      0 14px 34px -18px rgb(21 21 15 / 0.18);
   }
 
-  /* ---- L'autocollant : la brique de base de toute la DA --------------- */
-  .sticker {
-    border: 3px solid var(--color-ink);
-    border-radius: var(--radius-blob);
-    box-shadow: 5px 5px 0 var(--color-ink);
+  .card-flat {
+    background-color: var(--color-paper);
+    border-radius: var(--radius-card);
+    box-shadow: 0 1px 2px rgb(21 21 15 / 0.05);
   }
 
-  .sticker-sm {
-    border: 3px solid var(--color-ink);
-    border-radius: var(--radius-chip);
-    box-shadow: 3px 3px 0 var(--color-ink);
-  }
-
-  /* Autocollant réactif : il s'enfonce quand on clique dessus. */
-  .sticker-press {
+  /* ---- Boutons : des pilules, claires ou encre ------------------------- */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border-radius: 999px;
+    font-weight: 600;
+    white-space: nowrap;
     transition:
-      transform 0.12s cubic-bezier(0.2, 0.8, 0.3, 1),
-      box-shadow 0.12s cubic-bezier(0.2, 0.8, 0.3, 1);
+      transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+      background-color 0.2s ease;
   }
 
-  .sticker-press:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 7px 7px 0 var(--color-ink);
+  .pill-light {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow:
+      0 1px 2px rgb(21 21 15 / 0.06),
+      0 10px 24px -14px rgb(21 21 15 / 0.3);
   }
 
-  .sticker-press:active {
-    transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0 var(--color-ink);
+  .pill-dark {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
   }
 
-  .sticker-press:disabled {
+  .pill:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 2px 4px rgb(21 21 15 / 0.07),
+      0 16px 32px -14px rgb(21 21 15 / 0.35);
+  }
+
+  .pill:active {
+    transform: translateY(0);
+  }
+
+  .pill:disabled {
     transform: none;
-    box-shadow: 3px 3px 0 var(--color-ink-faint);
+    box-shadow: none;
     cursor: not-allowed;
   }
 
-  /* ---- Bandeau défilant ------------------------------------------------ */
-  .ticker-track {
-    display: flex;
-    width: max-content;
-    animation: ticker 32s linear infinite;
+  /* ---- Filets : un seul trait, très clair ------------------------------ */
+  .rule {
+    border-top: 1px solid var(--color-line);
   }
 
-  /* ---- Trame de bonbons en fond de section ---------------------------- */
-  .dots {
-    background-image: radial-gradient(
-      currentColor 2.5px,
-      transparent 2.6px
-    );
-    background-size: 22px 22px;
-  }
-
-  /* Rayures de barbe à papa. */
-  .stripes {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      currentColor 0 14px,
-      transparent 14px 28px
-    );
+  /* ---- Zone de dépôt / cadre de scène ---------------------------------- */
+  .dashed {
+    border: 1px dashed var(--color-line);
+    border-radius: var(--radius-card);
   }
 }
 
 /* ==========================================================================
-   Animations — tout doit rebondir, rien ne doit glisser
+   Mouvement — lent, ample, jamais rebondissant
    ========================================================================== */
 
-@keyframes ticker {
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flag-sway {
+  0%,
+  100% {
+    transform: rotate(-0.5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0.5deg) translateY(-7px);
+  }
+}
+
+@keyframes fold-drift {
+  from {
+    transform: translateX(-10%);
+  }
+  to {
+    transform: translateX(10%);
+  }
+}
+
+@keyframes drift {
   from {
     transform: translateX(0);
   }
@@ -194,102 +199,46 @@
   }
 }
 
-@keyframes flag-sway {
+@keyframes twinkle {
   0%,
   100% {
-    transform: rotate(-0.8deg) translateY(0);
+    opacity: 0.15;
+    transform: scale(0.85);
   }
   50% {
-    transform: rotate(0.8deg) translateY(-8px);
+    opacity: 0.7;
+    transform: scale(1);
   }
 }
 
-@keyframes fold-drift {
-  from {
-    transform: translateX(-12%);
-  }
-  to {
-    transform: translateX(12%);
-  }
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-
-@keyframes pop-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.82) translateY(12px);
-  }
-  70% {
-    transform: scale(1.04) translateY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
-@keyframes bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
-  }
-}
-
-@keyframes blink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-  50%,
-  95% {
-    opacity: 0.25;
-  }
-}
-
 .animate-sway {
-  animation: flag-sway 6s ease-in-out infinite;
+  animation: flag-sway 7s ease-in-out infinite;
 }
 .animate-folds {
-  animation: fold-drift 9s ease-in-out infinite alternate;
+  animation: fold-drift 10s ease-in-out infinite alternate;
 }
-.animate-pop {
-  animation: pop-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+.animate-drift {
+  display: flex;
+  width: max-content;
+  animation: drift 70s linear infinite;
 }
-.animate-wiggle {
-  animation: wiggle 2.4s ease-in-out infinite;
-}
-.animate-bob {
-  animation: bob 3.2s ease-in-out infinite;
-}
-.animate-blink {
-  animation: blink 1.3s steps(1) infinite;
+.animate-twinkle {
+  animation: twinkle 3.5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-rise,
   .animate-sway,
   .animate-folds,
-  .animate-pop,
-  .animate-wiggle,
-  .animate-bob,
-  .animate-blink,
-  .ticker-track {
+  .animate-drift,
+  .animate-twinkle {
     animation: none !important;
   }
 
-  .sticker-press:hover,
-  .sticker-press:active {
+  .pill:hover {
     transform: none;
   }
 }

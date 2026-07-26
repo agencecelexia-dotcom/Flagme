@@ -1,21 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { FlagPreview } from "@/components/flag/FlagPreview";
 import type { TextConfig } from "@/components/flag/EmbroideredText";
 import { getCountry } from "@/data/countries";
 
-type Showcase = {
-  countryCode: string;
-  text: TextConfig;
-  caption: string;
-};
+type Showcase = { countryCode: string; text: TextConfig; caption: string };
 
 /**
  * Vitrine du héros : de vraies combinaisons pays / ville, parce que le
  * concept se comprend en trois secondes quand on le voit, pas quand on
- * l'explique. Les nations hôtes de l'Euro 2028 ouvrent la série.
+ * l'explique.
  */
 const SHOWCASES: Showcase[] = [
   {
@@ -27,6 +22,32 @@ const SHOWCASES: Showcase[] = [
       fontId: "terrace",
       threadId: "navy",
       outlineId: "none",
+      placementId: "bottom",
+      sizeId: "m",
+    },
+  },
+  {
+    countryCode: "fr",
+    caption: "France · Marseille",
+    text: {
+      line1: "Marseille",
+      line2: "Depuis 1899",
+      fontId: "block",
+      threadId: "white",
+      outlineId: "dark",
+      placementId: "center",
+      sizeId: "m",
+    },
+  },
+  {
+    countryCode: "ma",
+    caption: "Maroc · Casablanca",
+    text: {
+      line1: "Casablanca",
+      line2: "",
+      fontId: "terrace",
+      threadId: "white",
+      outlineId: "dark",
       placementId: "bottom",
       sizeId: "m",
     },
@@ -44,61 +65,9 @@ const SHOWCASES: Showcase[] = [
       sizeId: "m",
     },
   },
-  {
-    countryCode: "fr",
-    caption: "France · Marseille",
-    text: {
-      line1: "Marseille",
-      line2: "Depuis 1899",
-      fontId: "block",
-      threadId: "gold",
-      outlineId: "dark",
-      placementId: "center",
-      sizeId: "m",
-    },
-  },
-  {
-    countryCode: "ma",
-    caption: "Maroc · Casablanca",
-    text: {
-      line1: "Casablanca",
-      line2: "Dima Maghrib",
-      fontId: "terrace",
-      threadId: "white",
-      outlineId: "dark",
-      placementId: "bottom",
-      sizeId: "m",
-    },
-  },
-  {
-    countryCode: "gb-sct",
-    caption: "Écosse · Glasgow",
-    text: {
-      line1: "Glasgow",
-      line2: "",
-      fontId: "varsity",
-      threadId: "white",
-      outlineId: "dark",
-      placementId: "bottom",
-      sizeId: "m",
-    },
-  },
-  {
-    countryCode: "br",
-    caption: "Brésil · São Paulo",
-    text: {
-      line1: "São Paulo",
-      line2: "",
-      fontId: "script",
-      threadId: "white",
-      outlineId: "dark",
-      placementId: "top",
-      sizeId: "m",
-    },
-  },
 ];
 
-const ROTATION_MS = 4200;
+const ROTATION_MS = 5200;
 
 export function HeroShowcase() {
   const [index, setIndex] = useState(0);
@@ -123,56 +92,34 @@ export function HeroShowcase() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* L'écran : un cadre épais aux couleurs du pays affiché. */}
-      <div
-        className="sticker relative overflow-hidden p-4 transition-colors duration-500 sm:p-6"
-        style={{ backgroundColor: country.accent }}
-      >
-        <div
-          aria-hidden
-          className="dots pointer-events-none absolute inset-0 text-paper opacity-20"
-        />
+      <FlagPreview
+        key={current.countryCode + index}
+        spec={country.spec}
+        text={current.text}
+        ratio={1.667}
+        waving
+        className="animate-rise overflow-hidden rounded-card shadow-[0_40px_80px_-40px_rgb(21_21_15/0.45)]"
+      />
 
-        <div className="relative">
-          <FlagPreview
-            key={current.countryCode + index}
-            spec={country.spec}
-            text={current.text}
-            ratio={1.667}
-            waving
-            className="animate-pop drop-shadow-[8px_8px_0_rgba(0,0,0,0.35)]"
-          />
-        </div>
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <p className="text-sm text-ink-soft">{current.caption}</p>
 
-        <div className="sticker-sm relative mt-4 flex flex-wrap items-center justify-between gap-3 bg-paper px-3 py-2.5">
-          <p className="arcade text-sm">{current.caption}</p>
-
-          <div className="flex items-center gap-1.5" role="tablist" aria-label="Exemples">
-            {SHOWCASES.map((showcase, i) => (
-              <button
-                key={showcase.caption}
-                type="button"
-                role="tab"
-                aria-selected={i === index}
-                aria-label={showcase.caption}
-                onClick={() => setIndex(i)}
-                className={`h-3 rounded-full border-[3px] border-ink transition-all ${
-                  i === index ? "w-8 bg-bubble" : "w-3 bg-cream hover:bg-lemon"
-                }`}
-              />
-            ))}
-          </div>
+        <div className="flex items-center gap-2" role="tablist" aria-label="Exemples">
+          {SHOWCASES.map((showcase, i) => (
+            <button
+              key={showcase.caption}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={showcase.caption}
+              onClick={() => setIndex(i)}
+              className={`h-1.5 rounded-full transition-all ${
+                i === index ? "w-7 bg-clay" : "w-1.5 bg-line hover:bg-ink-faint"
+              }`}
+            />
+          ))}
         </div>
       </div>
-
-      <Link
-        href={`/configurateur?pays=${current.countryCode}&ligne1=${encodeURIComponent(
-          current.text.line1,
-        )}`}
-        className="sticker-sm sticker-press mt-4 inline-flex bg-paper px-4 py-2.5 text-sm font-bold"
-      >
-        Partir de ce modèle ▸
-      </Link>
     </div>
   );
 }

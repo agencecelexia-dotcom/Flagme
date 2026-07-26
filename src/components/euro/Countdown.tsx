@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { EURO, timeToKickoff, type Countdown as CountdownValue } from "@/data/euro2028";
 
 const CELLS: Array<{ key: keyof CountdownValue; label: string }> = [
-  { key: "days", label: "Jours" },
-  { key: "hours", label: "Heures" },
-  { key: "minutes", label: "Min" },
-  { key: "seconds", label: "Sec" },
+  { key: "days", label: "jours" },
+  { key: "hours", label: "heures" },
+  { key: "minutes", label: "min" },
+  { key: "seconds", label: "sec" },
 ];
 
 /**
@@ -16,7 +16,7 @@ const CELLS: Array<{ key: keyof CountdownValue; label: string }> = [
  * Le calcul démarre après le montage : rendre l'heure côté serveur ferait
  * diverger le HTML de l'hydratation à coup sûr.
  */
-export function Countdown({ tone = "light" }: { tone?: "light" | "dark" }) {
+export function Countdown() {
   const [value, setValue] = useState<CountdownValue | null>(null);
 
   useEffect(() => {
@@ -25,29 +25,21 @@ export function Countdown({ tone = "light" }: { tone?: "light" | "dark" }) {
     return () => window.clearInterval(timer);
   }, []);
 
-  const cellBg = tone === "dark" ? "bg-ink text-lemon" : "bg-paper text-ink";
-
   return (
-    <div className="flex gap-2 sm:gap-3">
+    <div className="flex items-end gap-7 sm:gap-9">
       {CELLS.map((cell) => (
-        <div key={cell.key} className="text-center">
-          <div
-            className={`sticker-sm grid h-14 w-14 place-items-center sm:h-16 sm:w-16 ${cellBg}`}
-          >
-            <span className="arcade text-xl tabular-nums sm:text-2xl">
-              {value === null
-                ? "--"
-                : String(value[cell.key] as number).padStart(2, "0")}
-            </span>
-          </div>
-          <p className="hud mt-1.5 text-[9px] text-ink-soft">{cell.label}</p>
+        <div key={cell.key}>
+          <p className="display text-4xl tabular-nums sm:text-5xl">
+            {value === null ? "—" : String(value[cell.key] as number).padStart(2, "0")}
+          </p>
+          <p className="mt-1.5 text-xs text-ink-soft">{cell.label}</p>
         </div>
       ))}
     </div>
   );
 }
 
-/** Variante compacte, sur une seule ligne, pour les bandeaux. */
+/** Variante d'une ligne, pour les rappels discrets. */
 export function CountdownInline() {
   const [days, setDays] = useState<number | null>(null);
 
@@ -59,10 +51,5 @@ export function CountdownInline() {
   }, []);
 
   if (days === null) return <span>{EURO.name}</span>;
-
-  return (
-    <span>
-      J−{days} avant l&apos;{EURO.name}
-    </span>
-  );
+  return <span>{`J−${days} avant l'${EURO.name}`}</span>;
 }

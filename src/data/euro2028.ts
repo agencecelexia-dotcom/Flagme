@@ -27,14 +27,14 @@ export type HostCity = {
 
 /** Les huit villes hôtes, dans l'ordre géographique nord → sud. */
 export const HOST_CITIES: HostCity[] = [
-  { city: "GLASGOW", countryCode: "gb-sct", stadium: "Hampden Park" },
-  { city: "NEWCASTLE", countryCode: "gb-eng", stadium: "St James' Park" },
-  { city: "MANCHESTER", countryCode: "gb-eng", stadium: "Manchester City Stadium" },
-  { city: "LIVERPOOL", countryCode: "gb-eng", stadium: "Everton Stadium" },
-  { city: "DUBLIN", countryCode: "ie", stadium: "Dublin Arena" },
-  { city: "BIRMINGHAM", countryCode: "gb-eng", stadium: "Villa Park" },
-  { city: "CARDIFF", countryCode: "gb-wls", stadium: "Stade national du pays de Galles" },
-  { city: "LONDON", countryCode: "gb-eng", stadium: "Wembley & Tottenham Hotspur Stadium" },
+  { city: "Glasgow", countryCode: "gb-sct", stadium: "Hampden Park" },
+  { city: "Newcastle", countryCode: "gb-eng", stadium: "St James' Park" },
+  { city: "Manchester", countryCode: "gb-eng", stadium: "Manchester City Stadium" },
+  { city: "Liverpool", countryCode: "gb-eng", stadium: "Everton Stadium" },
+  { city: "Dublin", countryCode: "ie", stadium: "Dublin Arena" },
+  { city: "Birmingham", countryCode: "gb-eng", stadium: "Villa Park" },
+  { city: "Cardiff", countryCode: "gb-wls", stadium: "Stade national du pays de Galles" },
+  { city: "London", countryCode: "gb-eng", stadium: "Wembley & Tottenham Hotspur Stadium" },
 ];
 
 export type Countdown = {

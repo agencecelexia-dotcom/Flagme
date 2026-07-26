@@ -11,7 +11,7 @@ export const COUNTRIES: Country[] = [
     code: "fr",
     name: "France",
     region: "europe",
-    cities: ["PARIS", "MARSEILLE", "LYON", "LILLE", "SAINT-ÉTIENNE", "NANTES"],
+    cities: ["Paris", "Marseille", "Lyon", "Lille", "Saint-Étienne", "Nantes"],
     accent: "#002395",
     defaultThread: "white",
     spec: {
@@ -29,7 +29,7 @@ export const COUNTRIES: Country[] = [
     code: "gb-eng",
     name: "Angleterre",
     region: "europe",
-    cities: ["MANCHESTER", "LIVERPOOL", "LONDON", "NEWCASTLE", "LEEDS", "SHEFFIELD"],
+    cities: ["Manchester", "Liverpool", "London", "Newcastle", "Leeds", "Sheffield"],
     accent: "#CE1124",
     defaultThread: "navy",
     spec: {
@@ -41,7 +41,7 @@ export const COUNTRIES: Country[] = [
     code: "gb-sct",
     name: "Écosse",
     region: "europe",
-    cities: ["GLASGOW", "EDINBURGH", "ABERDEEN", "DUNDEE"],
+    cities: ["Glasgow", "Edinburgh", "Aberdeen", "Dundee"],
     accent: "#005EB8",
     defaultThread: "white",
     spec: {
@@ -53,7 +53,7 @@ export const COUNTRIES: Country[] = [
     code: "gb-wls",
     name: "Pays de Galles",
     region: "europe",
-    cities: ["CARDIFF", "SWANSEA", "WREXHAM", "NEWPORT"],
+    cities: ["Cardiff", "Swansea", "Wrexham", "Newport"],
     accent: "#C8102E",
     defaultThread: "white",
     spec: {
@@ -89,7 +89,7 @@ export const COUNTRIES: Country[] = [
     code: "ie",
     name: "Irlande",
     region: "europe",
-    cities: ["DUBLIN", "CORK", "GALWAY", "LIMERICK"],
+    cities: ["Dublin", "Cork", "Galway", "Limerick"],
     accent: "#169B62",
     defaultThread: "navy",
     spec: {
@@ -107,7 +107,7 @@ export const COUNTRIES: Country[] = [
     code: "it",
     name: "Italie",
     region: "europe",
-    cities: ["ROMA", "MILANO", "NAPOLI", "TORINO", "PALERMO"],
+    cities: ["Roma", "Milano", "Napoli", "Torino", "Palermo"],
     accent: "#008C45",
     defaultThread: "navy",
     spec: {
@@ -125,7 +125,7 @@ export const COUNTRIES: Country[] = [
     code: "pt",
     name: "Portugal",
     region: "europe",
-    cities: ["LISBOA", "PORTO", "BRAGA", "COIMBRA", "FUNCHAL"],
+    cities: ["Lisboa", "Porto", "Braga", "Coimbra", "Funchal"],
     accent: "#006600",
     defaultThread: "white",
     spec: {
@@ -169,7 +169,7 @@ export const COUNTRIES: Country[] = [
     code: "es",
     name: "Espagne",
     region: "europe",
-    cities: ["MADRID", "BARCELONA", "SEVILLA", "VALENCIA", "BILBAO"],
+    cities: ["Madrid", "Barcelona", "Sevilla", "Valencia", "Bilbao"],
     accent: "#AA151B",
     defaultThread: "navy",
     spec: {
@@ -210,7 +210,7 @@ export const COUNTRIES: Country[] = [
     code: "de",
     name: "Allemagne",
     region: "europe",
-    cities: ["BERLIN", "MÜNCHEN", "HAMBURG", "DORTMUND", "KÖLN"],
+    cities: ["Berlin", "München", "Hamburg", "Dortmund", "Köln"],
     accent: "#DD0000",
     defaultThread: "black",
     spec: {
@@ -228,7 +228,7 @@ export const COUNTRIES: Country[] = [
     code: "nl",
     name: "Pays-Bas",
     region: "europe",
-    cities: ["AMSTERDAM", "ROTTERDAM", "EINDHOVEN", "UTRECHT"],
+    cities: ["Amsterdam", "Rotterdam", "Eindhoven", "Utrecht"],
     accent: "#AE1C28",
     defaultThread: "white",
     spec: {
@@ -246,7 +246,7 @@ export const COUNTRIES: Country[] = [
     code: "be",
     name: "Belgique",
     region: "europe",
-    cities: ["BRUXELLES", "ANVERS", "LIÈGE", "CHARLEROI", "GAND"],
+    cities: ["Bruxelles", "Anvers", "Liège", "Charleroi", "Gand"],
     accent: "#FAE042",
     defaultThread: "white",
     spec: {
@@ -264,7 +264,7 @@ export const COUNTRIES: Country[] = [
     code: "pl",
     name: "Pologne",
     region: "europe",
-    cities: ["WARSZAWA", "KRAKÓW", "GDAŃSK", "POZNAŃ"],
+    cities: ["Warszawa", "Kraków", "Gdańsk", "Poznań"],
     accent: "#DC143C",
     defaultThread: "white",
     spec: {
@@ -282,7 +282,7 @@ export const COUNTRIES: Country[] = [
     code: "hr",
     name: "Croatie",
     region: "europe",
-    cities: ["ZAGREB", "SPLIT", "RIJEKA", "OSIJEK"],
+    cities: ["Zagreb", "Split", "Rijeka", "Osijek"],
     accent: "#FF0000",
     defaultThread: "white",
     spec: {
@@ -318,7 +318,7 @@ export const COUNTRIES: Country[] = [
     code: "ch",
     name: "Suisse",
     region: "europe",
-    cities: ["ZÜRICH", "GENÈVE", "BASEL", "BERN", "LAUSANNE"],
+    cities: ["Zürich", "Genève", "Basel", "Bern", "Lausanne"],
     accent: "#FF0000",
     defaultThread: "white",
     spec: {
@@ -330,7 +330,7 @@ export const COUNTRIES: Country[] = [
     code: "dk",
     name: "Danemark",
     region: "europe",
-    cities: ["KØBENHAVN", "AARHUS", "ODENSE", "AALBORG"],
+    cities: ["København", "Aarhus", "Odense", "Aalborg"],
     accent: "#C60C30",
     defaultThread: "white",
     spec: {
@@ -342,7 +342,7 @@ export const COUNTRIES: Country[] = [
     code: "se",
     name: "Suède",
     region: "europe",
-    cities: ["STOCKHOLM", "GÖTEBORG", "MALMÖ", "UPPSALA"],
+    cities: ["Stockholm", "Göteborg", "Malmö", "Uppsala"],
     accent: "#006AA7",
     defaultThread: "white",
     spec: {
@@ -354,7 +354,7 @@ export const COUNTRIES: Country[] = [
     code: "gr",
     name: "Grèce",
     region: "europe",
-    cities: ["ATHÍNA", "THESSALONÍKI", "PATRA", "IRÁKLEIO"],
+    cities: ["Athína", "Thessaloníki", "Patra", "Irákleio"],
     accent: "#0D5EAF",
     defaultThread: "white",
     spec: {
@@ -385,7 +385,7 @@ export const COUNTRIES: Country[] = [
     code: "ua",
     name: "Ukraine",
     region: "europe",
-    cities: ["KYIV", "LVIV", "ODESA", "KHARKIV"],
+    cities: ["Kyiv", "Lviv", "Odesa", "Kharkiv"],
     accent: "#0057B7",
     defaultThread: "navy",
     spec: {
@@ -405,7 +405,7 @@ export const COUNTRIES: Country[] = [
     code: "ma",
     name: "Maroc",
     region: "afrique",
-    cities: ["CASABLANCA", "RABAT", "MARRAKECH", "FÈS", "TANGER", "AGADIR"],
+    cities: ["Casablanca", "Rabat", "Marrakech", "Fès", "Tanger", "Agadir"],
     accent: "#C1272D",
     defaultThread: "white",
     spec: {
@@ -427,7 +427,7 @@ export const COUNTRIES: Country[] = [
     code: "dz",
     name: "Algérie",
     region: "afrique",
-    cities: ["ALGER", "ORAN", "CONSTANTINE", "ANNABA", "TIZI OUZOU"],
+    cities: ["Alger", "Oran", "Constantine", "Annaba", "Tizi Ouzou"],
     accent: "#006233",
     defaultThread: "navy",
     spec: {
@@ -443,7 +443,7 @@ export const COUNTRIES: Country[] = [
     code: "tn",
     name: "Tunisie",
     region: "afrique",
-    cities: ["TUNIS", "SFAX", "SOUSSE", "BIZERTE", "KAIROUAN"],
+    cities: ["Tunis", "Sfax", "Sousse", "Bizerte", "Kairouan"],
     accent: "#E70013",
     defaultThread: "white",
     spec: {
@@ -459,7 +459,7 @@ export const COUNTRIES: Country[] = [
     code: "sn",
     name: "Sénégal",
     region: "afrique",
-    cities: ["DAKAR", "THIÈS", "SAINT-LOUIS", "ZIGUINCHOR"],
+    cities: ["Dakar", "Thiès", "Saint-Louis", "Ziguinchor"],
     accent: "#00853F",
     defaultThread: "navy",
     spec: {
@@ -478,7 +478,7 @@ export const COUNTRIES: Country[] = [
     code: "ci",
     name: "Côte d'Ivoire",
     region: "afrique",
-    cities: ["ABIDJAN", "YAMOUSSOUKRO", "BOUAKÉ", "DALOA"],
+    cities: ["Abidjan", "Yamoussoukro", "Bouaké", "Daloa"],
     accent: "#F77F00",
     defaultThread: "navy",
     spec: {
@@ -496,7 +496,7 @@ export const COUNTRIES: Country[] = [
     code: "cm",
     name: "Cameroun",
     region: "afrique",
-    cities: ["YAOUNDÉ", "DOUALA", "GAROUA", "BAFOUSSAM"],
+    cities: ["Yaoundé", "Douala", "Garoua", "Bafoussam"],
     accent: "#007A5E",
     defaultThread: "navy",
     spec: {
@@ -515,7 +515,7 @@ export const COUNTRIES: Country[] = [
     code: "ng",
     name: "Nigeria",
     region: "afrique",
-    cities: ["LAGOS", "ABUJA", "KANO", "IBADAN"],
+    cities: ["Lagos", "Abuja", "Kano", "Ibadan"],
     accent: "#008751",
     defaultThread: "navy",
     spec: {
@@ -533,7 +533,7 @@ export const COUNTRIES: Country[] = [
     code: "gh",
     name: "Ghana",
     region: "afrique",
-    cities: ["ACCRA", "KUMASI", "TAMALE", "TAKORADI"],
+    cities: ["Accra", "Kumasi", "Tamale", "Takoradi"],
     accent: "#CE1126",
     defaultThread: "white",
     spec: {
@@ -552,7 +552,7 @@ export const COUNTRIES: Country[] = [
     code: "ml",
     name: "Mali",
     region: "afrique",
-    cities: ["BAMAKO", "SIKASSO", "MOPTI", "GAO"],
+    cities: ["Bamako", "Sikasso", "Mopti", "Gao"],
     accent: "#14B53A",
     defaultThread: "navy",
     spec: {
@@ -570,7 +570,7 @@ export const COUNTRIES: Country[] = [
     code: "cd",
     name: "RD Congo",
     region: "afrique",
-    cities: ["KINSHASA", "LUBUMBASHI", "GOMA", "KISANGANI"],
+    cities: ["Kinshasa", "Lubumbashi", "Goma", "Kisangani"],
     accent: "#007FFF",
     defaultThread: "white",
     spec: {
@@ -589,7 +589,7 @@ export const COUNTRIES: Country[] = [
     code: "br",
     name: "Brésil",
     region: "ameriques",
-    cities: ["SÃO PAULO", "RIO DE JANEIRO", "SALVADOR", "BELO HORIZONTE", "RECIFE"],
+    cities: ["São Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Recife"],
     accent: "#009739",
     defaultThread: "white",
     spec: {
@@ -613,7 +613,7 @@ export const COUNTRIES: Country[] = [
     code: "ar",
     name: "Argentine",
     region: "ameriques",
-    cities: ["BUENOS AIRES", "CÓRDOBA", "ROSARIO", "MENDOZA", "LA PLATA"],
+    cities: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza", "La Plata"],
     accent: "#74ACDF",
     defaultThread: "navy",
     spec: {
@@ -632,7 +632,7 @@ export const COUNTRIES: Country[] = [
     code: "co",
     name: "Colombie",
     region: "ameriques",
-    cities: ["BOGOTÁ", "MEDELLÍN", "CALI", "BARRANQUILLA"],
+    cities: ["Bogotá", "Medellín", "Cali", "Barranquilla"],
     accent: "#FCD116",
     defaultThread: "white",
     spec: {
@@ -654,7 +654,7 @@ export const COUNTRIES: Country[] = [
     code: "us",
     name: "États-Unis",
     region: "ameriques",
-    cities: ["NEW YORK", "LOS ANGELES", "CHICAGO", "MIAMI", "BOSTON"],
+    cities: ["New York", "Los Angeles", "Chicago", "Miami", "Boston"],
     accent: "#B31942",
     defaultThread: "navy",
     spec: {
@@ -688,7 +688,7 @@ export const COUNTRIES: Country[] = [
     code: "tr",
     name: "Turquie",
     region: "asie-oceanie",
-    cities: ["İSTANBUL", "ANKARA", "İZMİR", "BURSA", "TRABZON"],
+    cities: ["İstanbul", "Ankara", "İzmir", "Bursa", "Trabzon"],
     accent: "#E30A17",
     defaultThread: "white",
     spec: {
@@ -703,7 +703,7 @@ export const COUNTRIES: Country[] = [
     code: "jp",
     name: "Japon",
     region: "asie-oceanie",
-    cities: ["TOKYO", "OSAKA", "KYOTO", "YOKOHAMA", "SAPPORO"],
+    cities: ["Tokyo", "Osaka", "Kyoto", "Yokohama", "Sapporo"],
     accent: "#BC002D",
     defaultThread: "navy",
     spec: {

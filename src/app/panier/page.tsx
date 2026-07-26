@@ -8,13 +8,13 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
-      <p className="hud text-bubble">Ton panier</p>
-      <h1 className="arcade-hero mt-3 text-[clamp(2.4rem,7vw,4.5rem)]">
+    <div className="mx-auto max-w-7xl px-5 pb-16 pt-10">
+      <p className="eyebrow">Ton panier</p>
+      <h1 className="display mt-6 text-[clamp(2.6rem,6vw,4.2rem)]">
         Avant le coup d&apos;envoi
       </h1>
 
-      <div className="mt-10">
+      <div className="mt-14">
         <CartView />
       </div>
     </div>

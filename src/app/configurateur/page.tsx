@@ -36,21 +36,14 @@ export default async function ConfiguratorPage({
 
   return (
     <>
-      <div className="edge-b relative overflow-hidden bg-lime">
-        <div
-          aria-hidden
-          className="dots pointer-events-none absolute inset-0 text-ink opacity-10"
-        />
-        <div className="relative mx-auto max-w-7xl px-4 py-10">
-          <p className="hud text-ink-soft">Écran de création</p>
-          <h1 className="arcade-hero mt-3 text-[clamp(2.4rem,7vw,4.5rem)]">
-            Fabrique le tien
-          </h1>
-          <p className="mt-3 max-w-xl font-semibold text-ink-soft">
-            Tout se voit en direct sur l&apos;aperçu, y compris le prix. Rien
-            n&apos;est facturé tant que tu n&apos;as pas validé.
-          </p>
-        </div>
+      <div className="mx-auto max-w-7xl px-5 pb-12 pt-10">
+        <p className="eyebrow">Le configurateur</p>
+        <h1 className="display mt-6 text-[clamp(2.6rem,6vw,4.2rem)]">
+          Fabrique le tien
+        </h1>
+        <p className="mt-5 max-w-md leading-relaxed text-ink-soft">
+          Tout se voit en direct sur l&apos;aperçu, y compris le prix.
+        </p>
       </div>
 
       <Configurator

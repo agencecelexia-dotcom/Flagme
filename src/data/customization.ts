@@ -57,7 +57,7 @@ export const STITCH_FONTS: StitchFont[] = [
     uppercase: true,
     // Le slab a des approches très serrées : sans cet écart, le bourrelet
     // de fil fait se toucher les lettres voisines.
-    tracking: 0.06,
+    tracking: 0.1,
     sizeFactor: 0.78,
   },
   {

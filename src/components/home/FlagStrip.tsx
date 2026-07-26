@@ -2,44 +2,32 @@
 
 import Link from "next/link";
 import { COUNTRIES } from "@/data/countries";
-import { HOST_NATIONS } from "@/data/euro2028";
 import { FlagPreview } from "@/components/flag/FlagPreview";
 
 /**
- * Bande défilante du catalogue de nations, montée comme une rangée de
- * vignettes à collectionner. Deux copies identiques se suivent pour que la
- * boucle soit invisible.
+ * Bande de nations qui défile lentement. Pas de nom, pas de badge : c'est
+ * une image, pas une liste — le détail se lit dans le configurateur.
  */
 export function FlagStrip() {
   return (
-    <div className="relative overflow-hidden py-3">
-      <div className="ticker-track gap-4">
+    <div className="relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-bone to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-bone to-transparent" />
+
+      <div className="animate-drift gap-4 py-2">
         {[0, 1].map((copy) => (
           <div key={copy} className="flex shrink-0 gap-4 pr-4" aria-hidden={copy === 1}>
-            {COUNTRIES.map((country) => {
-              const isHost = HOST_NATIONS.includes(
-                country.code as (typeof HOST_NATIONS)[number],
-              );
-              return (
-                <Link
-                  key={country.code}
-                  href={`/configurateur?pays=${country.code}`}
-                  className="sticker-sm sticker-press group relative w-40 shrink-0 overflow-hidden bg-paper"
-                  aria-label={`Créer un drapeau ${country.name}`}
-                  tabIndex={copy === 0 ? 0 : -1}
-                >
-                  {isHost && (
-                    <span className="absolute -right-1 -top-1 z-10 grid h-6 w-6 place-items-center rounded-full border-[3px] border-ink bg-lemon text-[10px]">
-                      ★
-                    </span>
-                  )}
-                  <div className="border-b-[3px] border-ink">
-                    <FlagPreview spec={country.spec} hardware={false} />
-                  </div>
-                  <p className="truncate px-2.5 py-2 text-xs font-bold">{country.name}</p>
-                </Link>
-              );
-            })}
+            {COUNTRIES.map((country) => (
+              <Link
+                key={country.code}
+                href={`/configurateur?pays=${country.code}`}
+                className="w-36 shrink-0 overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.06),0_10px_24px_-16px_rgb(21_21_15/0.35)] transition-transform duration-500 hover:-translate-y-1"
+                aria-label={`Créer un drapeau ${country.name}`}
+                tabIndex={copy === 0 ? 0 : -1}
+              >
+                <FlagPreview spec={country.spec} />
+              </Link>
+            ))}
           </div>
         ))}
       </div>
