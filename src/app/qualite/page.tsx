@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FlagPreview } from "@/components/flag/FlagPreview";
 import { DeliveryEstimate } from "@/components/product/DeliveryEstimate";
+import { PhotoFrame } from "@/components/product/PhotoFrame";
+import { QUALITY_PHOTOS } from "@/lib/photos";
 import { getCountry } from "@/data/countries";
 import { SHIPPING_DAYS, WORKSHOP_WORKING_DAYS } from "@/lib/delivery";
 
@@ -51,32 +53,16 @@ export default function QualityPage() {
         </p>
       </section>
 
-      {/* Le visuel à gauche, les caractéristiques à droite. */}
+      {/* Les photographies à gauche, les caractéristiques à droite. */}
       <section className="mx-auto max-w-7xl px-5 py-10">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="overflow-hidden rounded-card shadow-[0_40px_80px_-40px_rgb(21_21_15/0.45)]">
-              <FlagPreview
-                spec={demo.spec}
-                text={{
-                  line1: "Wigan",
-                  line2: "",
-                  fontId: "terrace",
-                  threadId: "navy",
-                  outlineId: "none",
-                  placementId: "center",
-                  sizeId: "l",
-                }}
-              />
-            </div>
-            <p className="mt-5 text-sm leading-relaxed text-ink-soft">
-              Le relief du fil, la trame satin inclinée et l&apos;ombre portée
-              sur le tissu : ce que vous voyez à l&apos;écran est ce que la
-              machine brode.
-            </p>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <div className="space-y-12">
+            {QUALITY_PHOTOS.map((photo) => (
+              <PhotoFrame key={photo.file} photo={photo} />
+            ))}
           </div>
 
-          <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:sticky lg:top-28 lg:self-start">
             {SPECS.map((spec) => (
               <div key={spec.title} className="card p-6">
                 <p className="eyebrow">{spec.eyebrow}</p>
@@ -95,16 +81,39 @@ export default function QualityPage() {
           Pourquoi ça coûte plus cher
         </h2>
 
-        <div className="mt-10 grid gap-x-16 gap-y-8 sm:grid-cols-2">
-          {[
-            ["Un drapeau imprimé", "L'encre est déposée en surface. Elle pâlit au soleil, craquelle aux pliures et s'efface au lavage. Comptez une saison."],
-            ["Un drapeau brodé", "Le fil traverse le tissu. Le texte se lit des deux côtés, résiste au lavage et se répare à l'aiguille s'il s'accroche."],
-          ].map(([title, body]) => (
-            <div key={title} className="rule pt-7">
-              <h3 className="display text-lg">{title}</h3>
-              <p className="mt-3 leading-relaxed text-ink-soft">{body}</p>
-            </div>
-          ))}
+        <div className="mt-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-1">
+            {[
+              ["Un drapeau imprimé", "L'encre est déposée en surface. Elle pâlit au soleil, craquelle aux pliures et s'efface au lavage. Comptez une saison."],
+              ["Un drapeau brodé", "Le fil traverse le tissu. Le texte se lit des deux côtés, résiste au lavage et se répare à l'aiguille s'il s'accroche."],
+            ].map(([title, body]) => (
+              <div key={title} className="rule pt-7">
+                <h3 className="display text-lg">{title}</h3>
+                <p className="mt-3 leading-relaxed text-ink-soft">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <FlagPreview
+              className="overflow-hidden rounded-card shadow-[0_30px_70px_-40px_rgb(21_21_15/0.45)]"
+              spec={demo.spec}
+              text={{
+                line1: "Wigan",
+                line2: "",
+                fontId: "terrace",
+                threadId: "navy",
+                outlineId: "light",
+                placementId: "center",
+                sizeId: "l",
+              }}
+            />
+            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+              Le relief du fil, la trame satin inclinée et l&apos;ombre portée
+              sur le tissu : ce que vous voyez à l&apos;écran est ce que la
+              machine brode.
+            </p>
+          </div>
         </div>
       </section>
 

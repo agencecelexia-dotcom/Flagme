@@ -25,7 +25,7 @@ export function FlagStrip() {
                 aria-label={`Créer un drapeau ${country.name}`}
                 tabIndex={copy === 0 ? 0 : -1}
               >
-                <FlagPreview spec={country.spec} />
+                <FlagPreview spec={country.spec} label="" />
               </Link>
             ))}
           </div>

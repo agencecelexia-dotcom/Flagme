@@ -18,6 +18,12 @@ type FlagPreviewProps = {
   hardware?: boolean;
   /** Ondulation du tissu. */
   waving?: boolean;
+  /**
+   * Description pour les lecteurs d'écran. Passer une chaîne vide quand
+   * l'aperçu est purement décoratif ou que son conteneur porte déjà le nom :
+   * annoncer « aperçu du drapeau » quatre fois de suite n'aide personne.
+   */
+  label?: string;
   className?: string;
 };
 
@@ -32,6 +38,7 @@ export function FlagPreview({
   ratio = 1.667,
   hardware = false,
   waving = false,
+  label = "Aperçu du drapeau personnalisé",
   className = "",
 }: FlagPreviewProps) {
   const uid = useId().replace(/:/g, "");
@@ -45,8 +52,7 @@ export function FlagPreview({
         viewBox={`0 0 ${FLAG_W} ${FLAG_H}`}
         preserveAspectRatio="none"
         className="h-full w-full"
-        role="img"
-        aria-label="Aperçu du drapeau personnalisé"
+        {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}
       >
         <defs>
           {/* Grain du tissu : la maille du polyester, pas un bruit d'écran. */}

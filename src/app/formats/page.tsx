@@ -83,7 +83,7 @@ export default function FormatsPage() {
                 style={{ width: `${cmToPct * format.widthCm}%` }}
               >
                 <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.08)]">
-                  <FlagPreview spec={demo.spec} ratio={format.ratio} />
+                  <FlagPreview spec={demo.spec} ratio={format.ratio} label="" />
                 </div>
                 <p className="mt-3 text-sm font-semibold">{format.name}</p>
                 <p className="text-xs text-ink-soft">{format.dims}</p>
@@ -105,6 +105,7 @@ export default function FormatsPage() {
             <article key={format.id} className="flex flex-col">
               <Link
                 href={`/configurateur?format=${format.id}`}
+                aria-label={`Personnaliser le format ${format.name}`}
                 className="flex aspect-3/2 items-center transition-transform duration-500 hover:-translate-y-1"
               >
                 <FlagPreview

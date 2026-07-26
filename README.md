@@ -55,6 +55,32 @@ l'exige, pas la donnée.
   les huit villes hôtes cliquables qui pré-remplissent le configurateur.
 - **Manifeste** (`/manifeste`), **FAQ** (`/faq`) en deux colonnes.
 - **Panier** (`/panier`) — persistant, avec quantités et frais de port.
+- Page 404, `sitemap.xml`, `robots.txt` et image de partage (1200 × 630).
+
+## Les photographies
+
+Le parti pris : la photo ne sert qu'à la **matière et à l'atmosphère** — fil,
+atelier, tribune, tissu au mur. Elle ne représente jamais un drapeau précis,
+ce rôle restant au rendu vectoriel. Sinon on montrerait à l'acheteur une image
+qui ne correspond pas à ce qu'on lui livre.
+
+Quatre emplacements attendent leurs fichiers dans la colonne gauche de
+`/qualite`. Il suffit de les déposer dans `public/photos/` :
+
+| Fichier | Rapport | Sujet |
+|---|---|---|
+| `broderie-macro.jpg` | 16/10 | Le fil bombé, la maille en arrière-plan |
+| `atelier.jpg` | 4/3 | Tête de machine à broder en action |
+| `tribune.jpg` | 16/10 | Tribune au crépuscule, drapeaux flous, de dos |
+| `mur.jpg` | 4/3 | Drapeau accroché sur un mur clair |
+
+`src/lib/photos.ts` vérifie leur présence **à la construction** : tant qu'un
+fichier manque, `PhotoFrame` affiche un cadre annoté avec le sujet attendu et
+le nom à déposer — jamais une image cassée.
+
+L'image de partage est régénérée en capturant une composition dédiée dans un
+navigateur, puis enregistrée en `src/app/opengraph-image.png`. La route de
+composition n'est pas conservée.
 
 ### Le parcours
 
@@ -137,3 +163,16 @@ annoncé comme tel plutôt que factice.
 
 Restent à construire : persistance des commandes, paiement, comptes clients,
 et transmission du fichier de broderie à l'atelier.
+
+## Avant une mise en ligne réelle
+
+- **Les avis de la home sont fictifs** (`PROOF` dans `src/app/page.tsx`) et
+  doivent être remplacés par de vrais retours. Publier des avis inventés
+  trompe l'acheteur et n'est pas légal.
+- **Mentions légales, CGV et page Livraison & retours** sont des libellés sans
+  page derrière, dans le pied de page.
+- **Les caractéristiques produit** (maille 115 g, garantie trois ans, délais)
+  sont des hypothèses à confirmer avec l'atelier avant d'être publiées.
+- **`NEXT_PUBLIC_SITE_URL`** doit pointer sur le domaine réel, sinon le
+  sitemap et les métadonnées de partage annoncent `flagme.fr`.
+- Le paiement est désactivé et annoncé comme tel.

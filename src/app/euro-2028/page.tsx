@@ -44,7 +44,12 @@ export default function EuroPage() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {hostNations.map((country) => (
-            <Link key={country.code} href={`/configurateur?pays=${country.code}`} className="group">
+            <Link
+              key={country.code}
+              href={`/configurateur?pays=${country.code}`}
+              aria-label={`Créer un drapeau ${country.name}`}
+              className="group"
+            >
               <div className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.06),0_14px_30px_-20px_rgb(21_21_15/0.4)] transition-transform duration-500 group-hover:-translate-y-1">
                 <FlagPreview
                   spec={country.spec}

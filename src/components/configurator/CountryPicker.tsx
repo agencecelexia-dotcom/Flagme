@@ -116,7 +116,7 @@ export function CountryPicker({
                       : "shadow-[0_1px_2px_rgb(21_21_15/0.07)]"
                   }`}
                 >
-                  <FlagPreview spec={country.spec} />
+                  <FlagPreview spec={country.spec} label="" />
                 </div>
                 <p
                   className={`mt-1.5 truncate text-[11px] transition-colors ${

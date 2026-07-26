@@ -99,6 +99,7 @@ export function NationGrid() {
             <article key={country.code}>
               <Link
                 href={`/configurateur?pays=${country.code}`}
+                aria-label={`Personnaliser un drapeau ${country.name}`}
                 className="block overflow-hidden rounded-card shadow-[0_1px_2px_rgb(21_21_15/0.06),0_16px_34px_-22px_rgb(21_21_15/0.45)] transition-transform duration-500 hover:-translate-y-1"
               >
                 <FlagPreview

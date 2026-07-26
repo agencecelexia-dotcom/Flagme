@@ -3,6 +3,7 @@ import { fontVariables } from "@/lib/fonts";
 import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,12 +22,16 @@ export const metadata: Metadata = {
     "Euro 2028",
     "FlagMe",
   ],
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "FlagMe — Ton pays. Ta ville. Brodés.",
     description:
       "Choisis ton pays, brode ta ville. Le drapeau de supporter personnalisé.",
     type: "website",
+    locale: "fr_FR",
+    siteName: "FlagMe",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

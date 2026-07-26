@@ -187,9 +187,10 @@ export default function HomePage() {
                 <Link
                   key={country.code}
                   href={`/configurateur?pays=${country.code}`}
+                  aria-label={`Créer un drapeau ${country.name}`}
                   className="overflow-hidden rounded-soft shadow-[0_1px_2px_rgb(21_21_15/0.06),0_12px_26px_-18px_rgb(21_21_15/0.4)] transition-transform duration-500 hover:-translate-y-1"
                 >
-                  <FlagPreview spec={country.spec} />
+                  <FlagPreview spec={country.spec} label="" />
                 </Link>
               ))}
             </div>
